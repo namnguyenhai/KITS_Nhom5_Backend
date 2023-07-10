@@ -6,12 +6,11 @@ import com.example.nhom5.service.ProductImageService;
 import com.example.nhom5.service.ProductService;
 import com.example.nhom5.service.SizeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product_images")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProductImageController {
     @Autowired
     ProductImageService productImageService;
@@ -24,13 +23,13 @@ public class ProductImageController {
 
     @Autowired
     SizeService sizeService;
-    @RequestMapping("/addProductImage")
+    @PostMapping("/addProductImage")
     public String add_ProductImage(@RequestBody ProductImage productImage){
         productImageService.addProductImage(productImage);
         return "Product Image added";
     }
 
-    @RequestMapping("/addProductImage_NewProduct")
+    @PostMapping("/addProductImage_NewProduct")
     public String add_ProductImage_New(@RequestBody ProductImage productImage){
         productService.addProduct(productImage.getProduct());
         colorService.addColor(productImage.getColor());

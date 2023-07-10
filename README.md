@@ -11,7 +11,6 @@ Path postman: http://localhost:8080/product_images/addProductImage_NewProduct
 {
     "urlImage" : "https://hoa.png",
     "product": {
-        "productId": 5,
         "name": "nike air",
         "brand": "nike",
         "description": "giay choi bong ro",
@@ -20,11 +19,9 @@ Path postman: http://localhost:8080/product_images/addProductImage_NewProduct
             }
     },
     "color":{
-        "id": 5,
         "name": "bubble"   
         },
     "size":{
-        "id": 3,
         "name":"S"
         }
 }
