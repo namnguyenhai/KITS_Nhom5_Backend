@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/colors")
 public class ColorController   {
     @Autowired
-    public ColorService colorService;
+    ColorService colorService;
 
     @PostMapping("/addColor")
     public String add_Color(@RequestBody Color color){

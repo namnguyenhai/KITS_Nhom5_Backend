@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sizes")
 public class SizeController {
     @Autowired
-    public SizeService sizeService;
+    SizeService sizeService;
 
     @PostMapping("/addSize")
     public String add_Size(@RequestBody Size size){

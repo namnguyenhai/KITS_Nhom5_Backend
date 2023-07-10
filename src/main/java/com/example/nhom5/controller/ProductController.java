@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 
 public class ProductController {
     @Autowired
-    public ProductService productService;
+    ProductService productService;
 
     @Autowired
-    public CategoryService categoryService;
+    CategoryService categoryService;
     @PostMapping("/addProductNewCategory")
     public String add_Product_New_Category(@RequestBody Product product){
         categoryService.addCategory(product.getCategory());
