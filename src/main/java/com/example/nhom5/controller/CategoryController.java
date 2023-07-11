@@ -19,6 +19,7 @@ public class CategoryController {
 
     @PostMapping("/add")
     public String add_Category(@RequestBody Category category){
+        category.setCategoryName(category.getCategoryName().toLowerCase());
         categoryService.addCategory(category);
         return "Category added";
     }

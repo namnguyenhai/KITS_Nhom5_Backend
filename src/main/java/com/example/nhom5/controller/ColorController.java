@@ -14,8 +14,9 @@ public class ColorController   {
     @Autowired
     ColorService colorService;
 
-    @PostMapping("/addColor")
+    @PostMapping("/add")
     public String add_Color(@RequestBody Color color){
+        color.setColorName(color.getColorName().toLowerCase());
         colorService.addColor(color);
         return "Color added";
     }

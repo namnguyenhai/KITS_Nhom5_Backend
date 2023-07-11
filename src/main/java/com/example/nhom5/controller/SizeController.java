@@ -14,8 +14,9 @@ public class SizeController {
     @Autowired
     SizeService sizeService;
 
-    @PostMapping("/addSize")
+    @PostMapping("/add")
     public String add_Size(@RequestBody Size size){
+        size.setSizeName(size.getSizeName().toUpperCase());
         sizeService.addSize(size);
         return "Size added";
     }

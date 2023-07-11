@@ -19,7 +19,7 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
 
-    private String name;
+    private String productName;
     private String brand;
     private String description;
 
@@ -28,5 +28,8 @@ public class Product implements Serializable {
     private Category category;
 
     @OneToMany(mappedBy = "product")
-    private Set<ProductImage> productImages;
+    private List<ProductImage> productImages;
+
+    @OneToMany(mappedBy = "product")
+    private List<Stock> stocks;
 }

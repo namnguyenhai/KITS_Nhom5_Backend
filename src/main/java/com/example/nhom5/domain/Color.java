@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -14,8 +16,8 @@ import java.io.Serializable;
 @Table(name = "color")
 public class Color implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private String colorName;
 
-    private String name;
+    @OneToMany(mappedBy = "color")
+    private List<Stock> stocks;
 }

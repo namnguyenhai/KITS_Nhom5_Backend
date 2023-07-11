@@ -6,29 +6,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
 @Data
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "product_image")
-public class ProductImage implements Serializable {
+@Table(name = "stock")
+
+public class Stock implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productImageId;
-
-    private String urlImage;
-
+    private int id;
+    private int quantityStock;
+    private double priceStock;
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "color")
-//    private Color color;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "size")
-//    private Size size;
 
+    @ManyToOne
+    @JoinColumn(name = "colorId")
+    private Color color;
 
+    @ManyToOne
+    @JoinColumn(name = "sizeId")
+    private Size size;
 }
