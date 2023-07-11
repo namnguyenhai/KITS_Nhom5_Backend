@@ -1,0 +1,15 @@
+package com.example.nhom5.service;
+
+import com.example.nhom5.domain.User;
+import com.example.nhom5.dto.UserDto;
+
+import java.util.List;
+
+public interface UserService {
+    public List<UserDto>getAllUser();
+    public User addUser(User user);
+    public User updateUser(User user);
+    public User findUserById(int userId);
+    public void deleteUser(int userId);
+
+}

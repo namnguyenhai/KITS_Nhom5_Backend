@@ -18,7 +18,6 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
-
     private String name;
     private String brand;
     private String description;
@@ -26,7 +25,8 @@ public class Product implements Serializable {
     @ManyToOne
     @JoinColumn(name = "categoryid")
     private Category category;
-
     @OneToMany(mappedBy = "product")
     private Set<ProductImage> productImages;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private Set<OrderedDetail> orderedDetails;
 }
