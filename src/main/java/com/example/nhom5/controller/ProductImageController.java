@@ -29,8 +29,9 @@ public class ProductImageController {
     }
 
     @PostMapping("/add_list_image")
-    public String add_List_ProductImage(@RequestBody List<ProductImage> productImages){
-        productImageService.addListProductImages(productImages);
+    public String add_List_ProductImage(@RequestBody List<ProductImage> productImages,int id){
+
+        productImageService.addListProductImages(productImages,id);
         return "added list image";
     }
 

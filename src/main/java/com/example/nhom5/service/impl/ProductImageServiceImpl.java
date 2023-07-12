@@ -21,7 +21,16 @@ public class ProductImageServiceImpl implements ProductImageService {
     }
 
     @Override
-    public List<ProductImage> addListProductImages(List<ProductImage> productImages) {
+    public List<ProductImage> addListProductImages(List<ProductImage> productImages,int id) {
+//        List<ProductImage> newProductImag = null;
+//        for(ProductImage productImage : productImages){
+//            productImage.getProduct().setProductId(id);
+////            pr.setProductId(pr.getProductId());
+//            newProductImag.add(productImage);
+//        }
+        for(ProductImage productImage: productImages){
+            productImage.getProduct().setProductId(id);
+        }
         return productImageRepository.saveAllAndFlush(productImages);
     }
 }

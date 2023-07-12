@@ -1,5 +1,6 @@
 package com.example.nhom5.controller;
 
+import com.example.nhom5.domain.Product;
 import com.example.nhom5.domain.ProductImage;
 import com.example.nhom5.domain.Stock;
 import com.example.nhom5.service.ProductImageService;
@@ -32,14 +33,15 @@ public class StockController {
 
     @PostMapping("/addStockWithNewProduct")
     public String add_Stock_New_Product(@RequestBody Stock stock){
-        productService.addProduct(stock.getProduct());
-        productImageService.addListProductImages(stock.getProduct().getProductImages());
+        Product pr = productService.addProduct(stock.getProduct());
+
+        productImageService.addListProductImages(stock.getProduct().getProductImages(),pr.getProductId());
         stockService.addStock(stock);
-        return "Stock added";
+        return "Stock added" ;
     }
     /*
     * {
-    "quantityStock": 10,
+    "quantityStock": 12,
     "priceStock": 10000,
     "product":{
         "productName": "nike air",
@@ -50,15 +52,15 @@ public class StockController {
         },
         "productImages": [
             {
-                "urlImage" : "https://dsad.png",
+                "urlImage" : "https://test1.png",
                 "product": {
-                    "productId": 2
+
                 }
             },
             {
-                "urlImage" : "https://hoa.png",
+                "urlImage" : "https://test2.png",
                 "product": {
-                    "productId": 2
+
                 }
             }
         ]

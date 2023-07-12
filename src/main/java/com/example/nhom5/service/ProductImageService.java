@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ProductImageService {
     public ProductImage addProductImage(ProductImage productImage);
-    public List<ProductImage> addListProductImages(List<ProductImage> productImages);
+    public List<ProductImage> addListProductImages(List<ProductImage> productImages,int id);
 }
