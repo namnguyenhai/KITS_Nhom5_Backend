@@ -27,9 +27,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "categoryid")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<ProductImage> productImages;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Stock> stocks;
 }
