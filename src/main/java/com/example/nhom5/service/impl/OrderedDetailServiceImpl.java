@@ -35,5 +35,10 @@ public class OrderedDetailServiceImpl implements OrderedDetailService {
         }
         return res;
      }
+
+    @Override
+    public OrderedDetail findOrderedDetaiById(int orderedDetailId) {
+        return orderedDetailRepository.findById(orderedDetailId);
     }
+}
 

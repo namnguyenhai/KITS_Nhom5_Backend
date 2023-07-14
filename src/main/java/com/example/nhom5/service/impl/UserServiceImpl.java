@@ -6,7 +6,6 @@ import com.example.nhom5.dto.UserDto;
 import com.example.nhom5.repository.UserRepository;
 import com.example.nhom5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,17 +19,17 @@ public class UserServiceImpl implements UserService {
     private UserConverter userConverter;
 
     // BCryptPasswordEncoder passwordEncoder;
-    public UserServiceImpl(UserRepository userRepository){
-        this.userRepository=userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
 
         // this.passwordEncoder=new BCryptPasswordEncoder();
     }
 
     @Override
     public List<UserDto> getAllUser() {
-        List<UserDto>res=new ArrayList<UserDto>();
-        List<User>entities=userRepository.findAll();
-        for(User u:entities){
+        List<UserDto> res = new ArrayList<UserDto>();
+        List<User> entities = userRepository.findAll();
+        for (User u : entities) {
             res.add(userConverter.toDTo(u));
         }
         return res;
@@ -38,7 +37,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        user.setRole("user");
+        //user.setRole("user");
         // String encodedPassword=passwordEncoder.encode(user.getPassWorld());
         // user.setPassWorld(encodedPassword);
         return userRepository.save(user);
@@ -56,8 +55,24 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(int userId) {
-        User user=userRepository.findById(userId);
+        User user = userRepository.findById(userId);
         userRepository.delete(user);
 
     }
+
+    @Override
+    public User findByToken(String token) {
+        return userRepository.findByToken(token);
+    }
+
+    @Override
+    public int updateTokenById(String token,int id) {
+        return userRepository.updateTokenById(token, id);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
+

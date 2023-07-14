@@ -1,16 +1,14 @@
 package com.example.nhom5.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import lombok.*;
 import java.util.List;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Getter
+@Setter
 @Entity
 @Table(name="users")
 public class User {
@@ -19,11 +17,13 @@ public class User {
     private int userId;
     private String firstName;
     private String lastName;
-    private String phone;
+    private String phoneNumber;
     private String address;
     private String image;
+    private String email;
     private String userName;
     private String passWorld;
+    private String token;
     private String role;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Ordered> order;

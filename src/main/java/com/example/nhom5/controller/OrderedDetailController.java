@@ -21,8 +21,9 @@ public class OrderedDetailController {
     }
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<OrderedDetail> addOderOrderedDetail(@RequestBody OrderedDetail orderedDetail){
+    public ResponseEntity<OrderedDetail> addOrderedDetail(@RequestBody OrderedDetail orderedDetail){
         orderedDetailService.addOrderedDetaiḷ(orderedDetail);
         return  ResponseEntity.ok(orderedDetail);
+
     }
 }

@@ -11,5 +11,9 @@ public interface UserService {
     public User updateUser(User user);
     public User findUserById(int userId);
     public void deleteUser(int userId);
+    public User findByToken(String token);
+    public int updateTokenById(String token, int id);
+   public  User findByUsername(String username);
+
 
 }

@@ -4,7 +4,7 @@ import com.example.nhom5.domain.User;
 import com.example.nhom5.dto.UserDto;
 import com.example.nhom5.service.UserService;
 
-import org.hibernate.ResourceClosedException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<User> adduser(@RequestBody User user) {
-        user.setRole("user");
+       // user.setRole("user");
         userService.addUser(user);
         return ResponseEntity.ok(user);
     }
@@ -40,7 +40,7 @@ public class UserController {
         user.setFirstName(userDetails.getFirstName());
         user.setLastName(userDetails.getLastName());
         user.setAddress(userDetails.getAddress());
-        user.setPhone(userDetails.getPhone());
+        user.setPhoneNumber(userDetails.getPhoneNumber());
         user.setImage(userDetails.getImage());
         //user.setRole(userDetails.getRole());
         user.setUserName(userDetails.getUserName());
