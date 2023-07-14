@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("users")
+@RequestMapping("api/admin/users")
 
 public class UserController {
     @Autowired
@@ -43,8 +43,8 @@ public class UserController {
         user.setPhoneNumber(userDetails.getPhoneNumber());
         user.setImage(userDetails.getImage());
         //user.setRole(userDetails.getRole());
-        user.setUserName(userDetails.getUserName());
-        user.setPassWorld(user.getPassWorld());
+        user.setUsername(userDetails.getUsername());
+        user.setPassword(user.getPassword());
         User userUpdate = userService.updateUser(user);
         return ResponseEntity.ok(userUpdate);
 

@@ -15,7 +15,7 @@ public class RegisterRequestDto {
     private String address;
     private String image;
     private String email;
-    private String userName;
-    private String passWorld;
+    private String username;
+    private String password;
     private String role;
 }

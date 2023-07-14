@@ -33,7 +33,7 @@ public class ForgotPassword {
     public ResponseEntity<RegisterResponseDto> forgotPassword(@RequestBody RegisterRequestDto registerRequest,
                                                               HttpServletResponse response) {
         // user entity
-        User user = userService.findByUsername(registerRequest.getUserName());
+        User user = userService.findByUsername(registerRequest.getUsername());
         System.out.println("USER: " + user);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("User not found", "",
@@ -41,7 +41,7 @@ public class ForgotPassword {
         } else {
             // if user exists
             try {
-                user.setPassWorld(bCryptPasswordEncoder.encode(registerRequest.getPassWorld()));
+                user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
                 String token = UtilsService.getRandomHexString(150);
                 user.setToken(token);
                 userService.updateTokenById(token, user.getUserId());

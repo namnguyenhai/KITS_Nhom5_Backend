@@ -21,8 +21,8 @@ public class User {
     private String address;
     private String image;
     private String email;
-    private String userName;
-    private String passWorld;
+    private String username;
+    private String password;
     private String token;
     private String role;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

@@ -33,7 +33,7 @@ public class Login {
     public ResponseEntity<RegisterResponseDto> login(@RequestBody RegisterRequestDto registerRequest,
                                                      HttpServletResponse response) {
         // user entity
-        User user = userService.findByUsername(registerRequest.getUserName());
+        User user = userService.findByUsername(registerRequest.getUsername());
 
         System.out.println("USER: " + user);
         if (user == null) {
@@ -41,7 +41,7 @@ public class Login {
                     "", "USER_NOT_FOUND"));
         } else {
             // if user exists
-            if (bCryptPasswordEncoder.matches(registerRequest.getPassWorld(), user.getPassWorld())) {
+            if (bCryptPasswordEncoder.matches(registerRequest.getPassword(), user.getPassword())) {
                 //1. generate new token
                 String newToken = utilsService.getRandomHexString(150);
                 System.out.println("NEW TOKEN: " + newToken);

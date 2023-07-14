@@ -39,14 +39,16 @@ public class Register {
         user.setPhoneNumber(registerRequest.getPhoneNumber());
         user.setRole(registerRequest.getRole());
         user.setImage(registerRequest.getImage());
-        user.setUserName(registerRequest.getUserName());
+        user.setEmail(registerRequest.getEmail());
+        user.setPassword(registerRequest.getPassword());
+        user.setUsername(registerRequest.getUsername());
 
-        User foundUser = userService.findByUsername(registerRequest.getUserName());
+        User foundUser = userService.findByUsername(registerRequest.getUsername());
         System.out.println("foundUser: " + foundUser);
         // Generate password
         if(foundUser == null) {
             try {
-                user.setPassWorld(bCryptPasswordEncoder.encode(registerRequest.getPassWorld()));
+                user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
                 user.setToken(UtilsService.getRandomHexString(150));
                 User result = userService.addUser(user);
                 // Set cookie
