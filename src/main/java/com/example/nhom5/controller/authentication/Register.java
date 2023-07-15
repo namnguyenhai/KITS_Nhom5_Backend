@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @RestController
 @RequestMapping("api/register")
@@ -28,6 +30,8 @@ public class Register {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private JavaMailSender javaMailSender;
 
     @PostMapping
     public ResponseEntity<RegisterResponseDto> register(@RequestBody RegisterRequestDto registerRequest, HttpServletResponse response) {
@@ -56,7 +60,21 @@ public class Register {
                 cookie.setMaxAge(3600);
                 //add cookie to response
                 response.addCookie(cookie);
-                //sendRegistrationEmail(registerRequest.getEmail());
+               //mail
+                SimpleMailMessage message=new SimpleMailMessage();
+                message.setTo(user.getEmail());
+                System.out.println(user.getEmail());
+                message.setSubject("Register Successfully!");
+                String mes = "";
+                mes+="\n Thank you for coming to Lisa-Store!";
+                mes+="\n Now you can login with Lisa-store with:";
+                mes+="\n -Username: "+registerRequest.getUsername();
+                mes+="\n -Password: "+registerRequest.getPassword();
+
+                message.setText(mes);
+                this.javaMailSender.send(message);
+
+
 
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Register Successfully", result, "",
@@ -69,6 +87,7 @@ public class Register {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("User already exists", "",
                     "", "USER_EXIST"));
         }
+
 
     }
 }
