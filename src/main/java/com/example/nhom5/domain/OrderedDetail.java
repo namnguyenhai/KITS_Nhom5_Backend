@@ -15,6 +15,7 @@ public class OrderedDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderedDetailId;
     private int quantityOrder;
+    private double unitPrice;
     private String colorName;
     private String sizeName;
     @ManyToOne

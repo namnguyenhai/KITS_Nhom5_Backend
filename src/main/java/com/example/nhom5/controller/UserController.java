@@ -1,6 +1,7 @@
 package com.example.nhom5.controller;
 
 import com.example.nhom5.domain.User;
+import com.example.nhom5.dto.RegisterResponseDto;
 import com.example.nhom5.dto.UserDto;
 import com.example.nhom5.service.UserService;
 
@@ -22,13 +23,17 @@ public class UserController {
     @GetMapping("/list")
     @ResponseBody
     public List<UserDto> getListuser() {
+
         return userService.getAllUser();
+    }
+    @RequestMapping("add")
+    public RegisterResponseDto add() {
+        return new RegisterResponseDto();
     }
 
     @PostMapping("/add")
     @ResponseBody
     public ResponseEntity<User> adduser(@RequestBody User user) {
-       // user.setRole("user");
         userService.addUser(user);
         return ResponseEntity.ok(user);
     }
@@ -42,7 +47,7 @@ public class UserController {
         user.setAddress(userDetails.getAddress());
         user.setPhoneNumber(userDetails.getPhoneNumber());
         user.setImage(userDetails.getImage());
-        //user.setRole(userDetails.getRole());
+        user.setRole(userDetails.getRole());
         user.setUsername(userDetails.getUsername());
         user.setPassword(user.getPassword());
         User userUpdate = userService.updateUser(user);

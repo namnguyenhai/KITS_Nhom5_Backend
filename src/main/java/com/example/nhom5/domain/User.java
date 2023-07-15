@@ -25,7 +25,7 @@ public class User {
     private String password;
     private String token;
     private String role;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Ordered> order;
 
 

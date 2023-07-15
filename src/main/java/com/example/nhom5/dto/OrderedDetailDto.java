@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class OrderedDetailDto implements Serializable {
     private int orderedDetailId;
     private int quantityOrder;
+    private double unitPrice;
     private String colorName;
     private String sizeName;
 }

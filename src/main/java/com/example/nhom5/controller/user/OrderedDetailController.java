@@ -1,4 +1,4 @@
-package com.example.nhom5.controller;
+package com.example.nhom5.controller.user;
 import com.example.nhom5.domain.OrderedDetail;
 import com.example.nhom5.dto.OrderedDetailDto;
 import com.example.nhom5.service.OrderedDetailService;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("ordered-details")
+@RequestMapping("api/user/ordered-details")
 public class OrderedDetailController {
     @Autowired
     OrderedDetailService orderedDetailService;

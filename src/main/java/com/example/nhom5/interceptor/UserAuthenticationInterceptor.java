@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class AdminAuthenticationInterceptor implements HandlerInterceptor {
+public class UserAuthenticationInterceptor implements HandlerInterceptor {
 
     @Autowired
     HttpSession session;
@@ -40,8 +40,8 @@ public class AdminAuthenticationInterceptor implements HandlerInterceptor {
             System.out.println("TOKEN: " + hd.get("token"));
             User user = userService.findByToken(hd.get("token"));
             System.out.println("USERRR: " + user);
-            if (user!=null&&user.getRole().equals("ADMIN")) {
-                //response.sendRedirect("/admin");
+            if (user!=null&&user.getRole().equals("USER")) {
+              //response.sendRedirect("/cart");
                 return true;
             } else {
                 response.setContentType("application/json");

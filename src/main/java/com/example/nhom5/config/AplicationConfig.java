@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class AplicationConfig {
+
+
     @Bean
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
@@ -30,5 +32,6 @@ public class AplicationConfig {
 //        dataSourceBuilder.password("son123");
 //        return dataSourceBuilder.build();
 //    }
+
 
 

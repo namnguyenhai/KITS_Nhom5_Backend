@@ -37,7 +37,7 @@ public class Register {
         user.setLastName(registerRequest.getLastName());
         user.setAddress(registerRequest.getAddress());
         user.setPhoneNumber(registerRequest.getPhoneNumber());
-        user.setRole(registerRequest.getRole());
+        user.setRole("USER");
         user.setImage(registerRequest.getImage());
         user.setEmail(registerRequest.getEmail());
         user.setPassword(registerRequest.getPassword());
@@ -56,6 +56,8 @@ public class Register {
                 cookie.setMaxAge(3600);
                 //add cookie to response
                 response.addCookie(cookie);
+                //sendRegistrationEmail(registerRequest.getEmail());
+
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Register Successfully", result, "",
                         ""));
@@ -67,5 +69,6 @@ public class Register {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("User already exists", "",
                     "", "USER_EXIST"));
         }
+
     }
 }

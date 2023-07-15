@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateTokenById(String token,int id) {
+    public int updateTokenById(String token, int id) {
         return userRepository.updateTokenById(token, id);
     }
 
@@ -74,5 +74,6 @@ public class UserServiceImpl implements UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
 }
 

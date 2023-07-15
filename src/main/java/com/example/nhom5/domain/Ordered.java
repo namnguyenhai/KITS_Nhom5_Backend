@@ -20,7 +20,7 @@ public class Ordered {
     private String status;
     private double totalPrice;
     private Date orderDate;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "userId")
     private User user;
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
