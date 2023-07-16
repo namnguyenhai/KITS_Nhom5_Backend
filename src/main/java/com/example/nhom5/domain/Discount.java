@@ -1,25 +1,30 @@
 package com.example.nhom5.domain;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.util.Set;
+import java.util.Date;
+import java.util.List;
 
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "category")
-
-public class Category implements Serializable {
+@Entity
+@Table(name = "discount")
+public class Discount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int categoryId;
-    private String categoryName;
 
-    @OneToMany(mappedBy = "category")
-    private Set<Product> products;
+    private double percentDiscount;
+
+    private int quantity;
+    private Date dateEnd;
+
+    @ManyToOne
+    @JoinColumn(name = "productId")
+    private Product product;
 }

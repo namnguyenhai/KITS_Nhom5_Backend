@@ -67,9 +67,9 @@ public class Register {
                 message.setSubject("Register Successfully!");
                 String mes = "";
                 mes+="\n Thank you for coming to Lisa-Store!";
-                mes+="\n Now you can login with Lisa-store with:";
-                mes+="\n -Username: "+registerRequest.getUsername();
-                mes+="\n -Password: "+registerRequest.getPassword();
+                mes+="\n Now you can login to Lisa-Store with:";
+                mes+="\n - Username: "+registerRequest.getUsername();
+                mes+="\n - Password: "+registerRequest.getPassword();
 
                 message.setText(mes);
                 this.javaMailSender.send(message);

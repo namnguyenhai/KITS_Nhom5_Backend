@@ -14,4 +14,9 @@ public class ProductServiceImpl implements ProductService {
     public Product addProduct(Product product) {
         return productRepository.saveAndFlush(product);
     }
+
+    @Override
+    public Product findProductById(int productId) {
+        return productRepository.findById(productId);
+    }
 }
