@@ -36,11 +36,5 @@ public class ProductImageController {
     }
 
 
-//    @PostMapping("/add_image_with_new_product")
-//    public String add_Image_New_Product(@RequestBody ProductImage productImage){
-//        productService.addProduct(productImage.getProduct());
-//        productImageService.addProductImage(productImage);
-//        return "Product and Image added";
-//    }
 
 }
