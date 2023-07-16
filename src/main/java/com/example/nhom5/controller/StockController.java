@@ -31,7 +31,7 @@ public class StockController {
         return "Stock added";
     }
 
-    @PostMapping("/addStockWithNewProduct")
+    @PostMapping("/add_stock_new_product")
     public String add_Stock_New_Product(@RequestBody Stock stock){
         Product pr = productService.addProduct(stock.getProduct());
 
