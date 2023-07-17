@@ -24,28 +24,49 @@ public class ProductController {
     ProductImageService productImageService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> add_Product(@RequestBody Product product){
+    public ResponseEntity<?> add_Product(@RequestBody Product product) {
         productService.addProduct(product);
-        Map<String,Object> output = new HashMap<>();
+        Map<String, Object> output = new HashMap<>();
         output.put("status", HttpStatus.OK.value());
-        output.put("product",productService.getAllProducts());
-        return new ResponseEntity<>(output,HttpStatus.OK);
+        output.put("product", productService.getAllProducts());
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
+    //    @GetMapping("/getAllProducts")
+//    public ResponseEntity<?> get_All_Products(){
+//        Map<String,Object> output = new HashMap<>();
+//        output.put("status",HttpStatus.OK.value());
+//
+//        output.put("product",productService.getAllProducts());
+//
+//        return new ResponseEntity<>(output,HttpStatus.OK);
+//    }
     @GetMapping("/getAllProducts")
-    public ResponseEntity<?> get_All_Products(){
-        Map<String,Object> output = new HashMap<>();
-        output.put("status",HttpStatus.OK.value());
-        output.put("product",productService.getAllProducts());
-        return new ResponseEntity<>(output,HttpStatus.OK);
+    public ResponseEntity<?> get_All_Products() {
+        Map<String, Object> output = new HashMap<>();
+        output.put("status", HttpStatus.OK.value());
+
+        output.put("product", productService.getAllProducts());
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
+
+    @GetMapping("/gettest")
+    public ResponseEntity<?> get_Tests() {
+        Map<String, Object> output = new HashMap<>();
+        output.put("status", HttpStatus.OK.value());
+
+        output.put("product", productService.getTests());
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete_Product_By_Id(@PathVariable int id){
+    public ResponseEntity<?> delete_Product_By_Id(@PathVariable int id) {
         productService.deleteProduct(id);
-        Map<String,Object> output = new HashMap<>();
-        output.put("status",HttpStatus.OK.value());
-        output.put("product",productService.getAllProducts());
-        return new ResponseEntity<>(output,HttpStatus.OK);
+        Map<String, Object> output = new HashMap<>();
+        output.put("status", HttpStatus.OK.value());
+        output.put("product", productService.getAllProducts());
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
 }
