@@ -11,17 +11,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CartItem {
-  private String productName;
+  private String productId;
   private int quantity;
   private double unitPrice;
   private String colorName;
   private String sizeName;
 
-  public CartItem(Product product, Stock stock, Color color, Size size, int quantity) {
-    this.productName = product.getProductName();
-    this.quantity = quantity;
-    this.unitPrice = stock.getPriceStock();
-    this.colorName = color.getColorName();
-    this.sizeName = size.getSizeName();
-  }
 }
