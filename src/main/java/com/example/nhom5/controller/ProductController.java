@@ -40,5 +40,12 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
-
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete_Product_By_Id(@PathVariable int id){
+        productService.deleteProduct(id);
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("product",productService.getAllProducts());
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
 }

@@ -31,15 +31,24 @@ public class SizeController {
         sizeService.addSize(size);
         Map<String, Object> out = new HashMap<>();
         out.put("status", HttpStatus.OK.value());
-        out.put("size",sizeService.getAllSize());
-        return new ResponseEntity<>(out,HttpStatus.OK);
+        out.put("size", sizeService.getAllSize());
+        return new ResponseEntity<>(out, HttpStatus.OK);
     }
 
     @GetMapping("/getallsize")
     public ResponseEntity<?> get_All_Size() {
-        Map<String,Object> output = new HashMap<>();
-        output.put("status",HttpStatus.OK.value());
-        output.put("size",sizeService.getAllSize());
-        return new ResponseEntity<>(output,HttpStatus.OK);
+        Map<String, Object> output = new HashMap<>();
+        output.put("status", HttpStatus.OK.value());
+        output.put("size", sizeService.getAllSize());
+        return new ResponseEntity<>(output, HttpStatus.OK);
     }
+
+//    @DeleteMapping("/delete_by_sizename/{sizeName}")
+//    public ResponseEntity<?> delete_By_Sizename(@PathVariable String sizeName){
+//        sizeService.deleteSize(sizeName);
+//        Map<String,Object> output = new HashMap<>();
+//        output.put("status",HttpStatus.OK.value());
+//        output.put("size", sizeService.getAllSize());
+//        return new ResponseEntity<>(output,HttpStatus.OK);
+//    }
 }

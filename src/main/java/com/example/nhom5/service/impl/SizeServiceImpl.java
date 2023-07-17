@@ -23,4 +23,5 @@ public class SizeServiceImpl implements SizeService {
     public List<SizeDTO> getAllSize() {
         return sizeRepository.findALl();
     }
+
 }

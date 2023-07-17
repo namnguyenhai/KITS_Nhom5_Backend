@@ -10,4 +10,6 @@ public interface ProductService {
 
 
     public List<ProductDTO> getAllProducts();
+
+    public String deleteProduct(int id);
 }
