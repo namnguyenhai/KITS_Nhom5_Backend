@@ -2,27 +2,18 @@ package com.example.nhom5.controller.user;
 
 import com.example.nhom5.converter.OrderedConverter;
 import com.example.nhom5.domain.Ordered;
-import com.example.nhom5.domain.OrderedDetail;
 import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.CartItem;
 import com.example.nhom5.dto.CartManager;
 import com.example.nhom5.dto.OrderedDto;
-import com.example.nhom5.service.OrderedDetailService;
 import com.example.nhom5.service.OrderedService;
 import com.example.nhom5.service.UserService;
-import jakarta.persistence.criteria.Order;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.annotation.Repeatable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("api/user/orders")
@@ -58,7 +49,7 @@ public class OrderedController {
                 }
             }
         }
-        // Lấy thông tin từ OrderRequest
+
         User user=userService.findUserById(userId);
         String status = "Success";
         double totalPrice = cartManager.totalPrice();
