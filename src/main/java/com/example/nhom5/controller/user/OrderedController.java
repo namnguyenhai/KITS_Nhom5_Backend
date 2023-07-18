@@ -43,8 +43,16 @@ public class OrderedController {
 
         if (cookies != null) {
             for (Cookie cookie : cookies) {
-                if ("userId".equals(cookie.getName())) {
-                    userId = Integer.parseInt(cookie.getValue());
+                if ("token".equals(cookie.getName())) {
+                    // Lấy giá trị token từ cookie
+                    String token = cookie.getValue();
+
+                    // Sử dụng token để lấy userId từ UserService
+                    User user = userService.findByToken(token);
+                    if (user != null) {
+                        userId = user.getUserId();
+                    }
+
                     break;
                 }
             }
