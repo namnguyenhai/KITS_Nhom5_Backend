@@ -51,6 +51,7 @@ public class OrderedController {
                     User user = userService.findByToken(token);
                     if (user != null) {
                         userId = user.getUserId();
+
                     }
 
                     break;

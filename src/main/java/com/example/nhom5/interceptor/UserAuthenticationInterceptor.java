@@ -46,7 +46,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
             } else {
                 response.setContentType("application/json");
                 RegisterResponseDto res = new RegisterResponseDto("User not found", "",
-                        "", "USER_NOT_FOUND");
+                        "", "USER_NOT_FOUND","");
                 String json = new ObjectMapper().writeValueAsString(res);
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.getWriter().print(json);
@@ -56,7 +56,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
         } else {
             response.setContentType("application/json");
             RegisterResponseDto res = new RegisterResponseDto("User not found", "",
-                    "", "USER_NOT_FOUND");
+                    "", "USER_NOT_FOUND","");
             String json = new ObjectMapper().writeValueAsString(res);
             response.setStatus(HttpStatus.UNAUTHORIZED.value());
             response.getWriter().print(json);

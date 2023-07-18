@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/login")
@@ -30,6 +27,7 @@ public class Login {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping
+    @ResponseBody
     public ResponseEntity<RegisterResponseDto> login(@RequestBody RegisterRequestDto registerRequest,
                                                      HttpServletResponse response) {
         // user entity
@@ -38,7 +36,7 @@ public class Login {
         System.out.println("USER: " + user);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("User not found", "",
-                    "", "USER_NOT_FOUND"));
+                    "", "USER_NOT_FOUND",""));
         } else {
             // if user exists
             if (bCryptPasswordEncoder.matches(registerRequest.getPassword(), user.getPassword())) {
@@ -53,9 +51,9 @@ public class Login {
                 response.addCookie(cookie);
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Login Successfully", "",
-                        "", ""));
+                        "", "", user.getToken()));
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("Wrong user or password", "", "", "USER_OR_PASSWORD_INVALID"));
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("Wrong user or password", "", "", "USER_OR_PASSWORD_INVALID",""));
             }
         }
     }

@@ -78,14 +78,14 @@ public class Register {
 
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Register Successfully", result, "",
-                        ""));
+                        "",""));
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("", "", e.getMessage(),
-                        "UNKNOWN_ERROR"));
+                        "UNKNOWN_ERROR",""));
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("User already exists", "",
-                    "", "USER_EXIST"));
+                    "", "USER_EXIST",""));
         }
 
 

@@ -37,7 +37,7 @@ public class Logout {
         User user = userService.findByToken(token);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("User logged out", "",
-                    "", "USER_LOGGED_OUT"));
+                    "", "USER_LOGGED_OUT",""));
         } else {
             // if user exists
             //1. update token
@@ -47,7 +47,7 @@ public class Logout {
             cookie.setMaxAge(0);
             response.addCookie(cookie);
             return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Logout Successfully", "",
-                    "", ""));
+                    "", "",""));
         }
     }
 }
