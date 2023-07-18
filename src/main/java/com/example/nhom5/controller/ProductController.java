@@ -45,7 +45,6 @@ public class ProductController {
     public ResponseEntity<?> get_All_Products() {
         Map<String, Object> output = new HashMap<>();
         output.put("status", HttpStatus.OK.value());
-
         output.put("product", productService.getAllProducts());
 
         return new ResponseEntity<>(output, HttpStatus.OK);

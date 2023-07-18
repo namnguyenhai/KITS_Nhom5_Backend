@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 //            "on products.productId = stock.product.productId")
 //    List<ProductDTO> getAllProduct();
 
-    @Query(value = "SELECT pro.product_id,pro.product_name,pro.brand,pro.description,cate.category_name,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT(DISTINCT st.color_id) as colorName,GROUP_CONCAT(DISTINCT st.size_id) as sizeName\n" +
+    @Query(value = "SELECT pro.product_id,pro.product_name,pro.brand,pro.description,cate.category_name,st.quantity_stock,st.price_stock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT(DISTINCT st.color_id) as colorName,GROUP_CONCAT(DISTINCT st.size_id) as sizeName\n" +
             "FROM product as pro \n" +
             "INNER JOIN category as cate \n" +
             "ON pro.categoryid = cate.category_name\n" +
