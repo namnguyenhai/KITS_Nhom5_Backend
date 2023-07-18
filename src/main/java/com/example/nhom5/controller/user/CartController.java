@@ -4,8 +4,6 @@ import com.example.nhom5.dto.CartItem;
 import com.example.nhom5.dto.CartManager;
 import com.example.nhom5.service.ProductService;
 import com.example.nhom5.service.StockService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
