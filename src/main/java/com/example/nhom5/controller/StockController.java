@@ -9,10 +9,7 @@ import com.example.nhom5.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +26,17 @@ public class StockController {
 
     @Autowired
     ProductImageService productImageService;
+
+    @GetMapping("/getstock/{id}")
+    public ResponseEntity<?> get_Stock_By_ID(@PathVariable int id){
+        stockService.getStockByID(id);
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("stock",stockService.getStockByID(id));
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
+
+
     @PostMapping("/add")
     public ResponseEntity<?> add_Stock(@RequestBody Stock stock){
         stockService.addStock(stock);

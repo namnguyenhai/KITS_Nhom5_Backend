@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class StockServiceImpl implements StockService {
@@ -22,4 +23,11 @@ public class StockServiceImpl implements StockService {
     public List<StockDTO> getAllStocks() {
         return stockRepository.getAllStock();
     }
+
+    @Override
+    public List<Map<String, Object>> getStockByID(int id) {
+        return stockRepository.findAllByStockId(id);
+    }
+
+
 }

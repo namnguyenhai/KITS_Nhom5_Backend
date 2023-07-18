@@ -7,18 +7,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StockDTO {
     private int stockId;
-    private String productName;
-    private String colorName;
-    private String sizeName;
     private int quantityStock;
     private double priceStock;
+    private int productId;
+    private String colorName;
+    private String sizeName;
 
-    public StockDTO(int stockId, String productName, String colorName, String sizeName, int quantityStock, double priceStock) {
+
+    public StockDTO(int stockId, int quantityStock, double priceStock, int productId, String colorName, String sizeName) {
         this.stockId = stockId;
-        this.productName = productName;
-        this.colorName = colorName;
-        this.sizeName = sizeName;
         this.quantityStock = quantityStock;
         this.priceStock = priceStock;
+        this.productId = productId;
+        this.colorName = colorName;
+        this.sizeName = sizeName;
     }
 }
