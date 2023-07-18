@@ -36,6 +36,14 @@ public class StockController {
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> delete_Stock_By_ID(@PathVariable int id){
+        stockService.deleteStockByID(id);
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("stock",stockService.getAllStocks());
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<?> add_Stock(@RequestBody Stock stock){

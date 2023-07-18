@@ -29,5 +29,11 @@ public class StockServiceImpl implements StockService {
         return stockRepository.findAllByStockId(id);
     }
 
+    @Override
+    public String deleteStockByID(int id) {
+        stockRepository.deleteById(id);
+        return "Stock deleted";
+    }
+
 
 }

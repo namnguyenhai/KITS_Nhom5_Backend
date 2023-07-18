@@ -12,4 +12,5 @@ public interface StockService {
     public List<StockDTO>  getAllStocks();
 
     public List<Map<String,Object>> getStockByID(int id);
+    public String deleteStockByID(int id);
 }

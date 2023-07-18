@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,20 @@ public class ProductController {
 //
 //        return new ResponseEntity<>(output,HttpStatus.OK);
 //    }
+
+    //        List<Map<String,Object>> data = productService.getAllProducts();
+//        data.stream().map(entry -> {
+//            Map<String,Object> maps = new HashMap<>();
+//            en
+//        })
+//        Map<String,Object> newData = data.get(0);
+//        for(String keys: newData.keySet()){
+//            if(keys.equals("urlImage")){
+//                newData.put(keys,"[1,2]");
+//                System.out.println(newData.get(keys));
+//            }
+//
+//        }
     @GetMapping("/getAllProducts")
     public ResponseEntity<?> get_All_Products() {
         Map<String, Object> output = new HashMap<>();
