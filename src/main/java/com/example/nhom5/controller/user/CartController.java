@@ -42,10 +42,12 @@ public class CartController {
     public void addToCart(@RequestBody CartItem requetCart) {
         CartItem cart =new CartItem();
         cart.setProductId(requetCart.getProductId());
+        cart.setQuantity(requetCart.getQuantity());
         cart.setUnitPrice(requetCart.getUnitPrice());
         cart.setColorName(requetCart.getColorName());
         cart.setSizeName(requetCart.getSizeName());
         cartManager.addToCart(cart);
+        //System.out.println(cartManager.totalPrice());
 
     }
 }

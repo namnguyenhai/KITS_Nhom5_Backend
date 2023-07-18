@@ -27,4 +27,11 @@ public class OrderedServiceImpl implements OrderedService {
         }
         return res;
     }
+
+    @Override
+    public Ordered save(Ordered order) {
+      return  orderedRepository.save(order);
+
+
+    }
 }

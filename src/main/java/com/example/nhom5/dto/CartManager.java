@@ -11,8 +11,16 @@ import java.util.List;
 public class CartManager {
     private List<CartItem> cartItems = new ArrayList<>();
 
+
     public void addToCart(CartItem item) {
         cartItems.add(item);
+    }
+    public double totalPrice(){
+        double result=0;
+      for(CartItem cartItem : cartItems){
+         result+= cartItem.getUnitPrice()*cartItem.getQuantity();
+        }
+        return result;
     }
 
     public void removeFromCart(CartItem item) {
