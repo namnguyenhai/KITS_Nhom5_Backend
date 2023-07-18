@@ -11,6 +11,8 @@ import com.example.nhom5.service.OrderedDetailService;
 import com.example.nhom5.service.OrderedService;
 import com.example.nhom5.service.UserService;
 import jakarta.persistence.criteria.Order;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,9 +43,21 @@ public class OrderedController {
 
 
     }
-    @PostMapping("/checkout/{id}")
+    @PostMapping("/checkout")
     @ResponseBody
-    public OrderedDto checkout(@PathVariable("id") int userId) {
+    public OrderedDto checkout(HttpServletRequest request) {
+        // Lấy thông tin từ cookie
+        Cookie[] cookies = request.getCookies();
+        int userId = 0; // Giá trị mặc định
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("userId".equals(cookie.getName())) {
+                    userId = Integer.parseInt(cookie.getValue());
+                    break;
+                }
+            }
+        }
         // Lấy thông tin từ OrderRequest
         User user=userService.findUserById(userId);
         String status = "Success";
