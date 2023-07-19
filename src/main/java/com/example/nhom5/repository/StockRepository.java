@@ -21,6 +21,7 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
             "on stock.size.sizeName = sz.sizeName")
     List<StockDTO> getAllStock();
 
+
     @Query(value = "SELECT stock.stock_id as stockId,product.product_id as productId,product.product_name as productName,stock.quantity_stock as quantityStock,stock.price_stock as priceStock,stock.color_id as colorId,stock.size_id as sizeId FROM stock \n" +
             "INNER JOIN product ON product.product_id = stock.product_id\n" +
             "WHERE stock.product_id = (:id)", nativeQuery = true)

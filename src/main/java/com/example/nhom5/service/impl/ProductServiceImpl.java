@@ -55,5 +55,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getProductBrand();
     }
 
+    @Override
+    public List<Map<String, Object>> filterProductAttribute(String brand, String size, String color, Double maxPrice) {
+        return productRepository.filterProduct(brand,size,color,maxPrice);
+    }
+
 
 }

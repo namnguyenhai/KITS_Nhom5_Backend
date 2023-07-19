@@ -48,6 +48,15 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
             "FROM product as pro",nativeQuery = true)
 
     List<Map<String,Object>> getProductBrand();
+
+    @Query(value = "SELECT pro.product_id as productId,pro.product_name as productName,pro.brand as brand,pro.description as description,cate.category_name as categoryName,st.quantity_stock as quantityStock,st.price_stock as priceStock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT(DISTINCT st.color_id) as colorName,GROUP_CONCAT(DISTINCT st.size_id) as sizeName\n" +
+            "FROM product as pro \n" +
+            "INNER JOIN category as cate ON pro.categoryid = cate.category_name\n" +
+            "INNER JOIN product_image as img ON pro.product_id = img.product_id\n" +
+            "INNER JOIN stock st ON pro.product_id = st.product_id\n" +
+            "WHERE pro.brand LIKE (:brandProduct) AND st.size_id LIKE (:sizeProduct) AND st.color_id LIKE (:colorProduct) AND (st.price_stock BETWEEN 0 AND (:maxPrice))\n" +
+            "GROUP BY pro.product_id\n",nativeQuery = true)
+    List<Map<String,Object>> filterProduct(@Param("brandProduct") String brandProduct, @Param("sizeProduct") String sizeProduct, @Param("colorProduct") String colorProduct, @Param("maxPrice") double maxPrice );
     @Query(value = "SELECT pro.product_id,GROUP_CONCAT(product_image.url_image) as urlimg \n" +
             "FROM product as pro\n" +
             "INNER JOIN category ON pro.categoryid = category.category_name \n" +

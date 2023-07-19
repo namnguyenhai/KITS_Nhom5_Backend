@@ -93,6 +93,11 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
+//    @GetMapping("/filterproduct")
+//    public ResponseEntity<?> filter_Product(){
+//        Map<String,Object> out
+//    }
+//
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete_Product_By_Id(@PathVariable int id) {
         productService.deleteProduct(id);
