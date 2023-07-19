@@ -12,6 +12,8 @@ import com.example.nhom5.service.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +40,8 @@ public class OrderedController {
     ProductService productService;
     @Autowired
     OrderedConverter orderedConverter;
+    @Autowired
+    JavaMailSender javaMailSender;
 
     @GetMapping("/list")
     @ResponseBody
@@ -103,7 +107,26 @@ public class OrderedController {
 
         orderedDetailService.addOrderedDetails(orderedDetails);
 
+
+        //gui mail đặt hàng thành công cho khách hàng
+        SimpleMailMessage message=new SimpleMailMessage();
+        message.setTo(user.getEmail());
+        System.out.println(user.getEmail());
+        message.setSubject("Order Successfully!");
+        String mes = "";
+        mes += "\n Dear Mr/Mrs " + user.getFirstName()+user.getLastName()+ ",";
+        mes += "\n Thank you for visiting us and making your purchase";
+
+        mes += "\n Your order includes: ";
+        for (CartItem cartItem:cartItems) {
+            mes += "\n"+ "Name: "+ cartItem.getProductName() + ", quantity: " + cartItem.getQuantity();
+        }
+        mes += "\n Total order price: " + order.getTotalPrice()+"$";
+        mes += "\n Your order for another quarter has been processed and will ship in the next few days";
+        message.setText(mes);
+        this.javaMailSender.send(message);
         cartManager.removeAllCart();
+
         return orderedDto;
     }
 
