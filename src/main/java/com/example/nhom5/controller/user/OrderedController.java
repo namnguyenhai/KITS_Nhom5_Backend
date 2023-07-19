@@ -2,38 +2,51 @@ package com.example.nhom5.controller.user;
 
 import com.example.nhom5.converter.OrderedConverter;
 import com.example.nhom5.domain.Ordered;
+import com.example.nhom5.domain.OrderedDetail;
+import com.example.nhom5.domain.Product;
 import com.example.nhom5.domain.User;
+import com.example.nhom5.dto.CartItem;
 import com.example.nhom5.dto.CartManager;
 import com.example.nhom5.dto.OrderedDto;
-import com.example.nhom5.service.OrderedService;
-import com.example.nhom5.service.UserService;
+import com.example.nhom5.service.*;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @Controller
 @RequestMapping("api/user/orders")
+@CrossOrigin("http://localhost:3000")
 
 public class OrderedController {
     @Autowired
     OrderedService orderedService;
     @Autowired
+    OrderedDetailService orderedDetailService;
+    @Autowired
+    StockService stockService;
+    @Autowired
     CartManager cartManager;
     @Autowired
     UserService userService;
     @Autowired
+    ProductService productService;
+    @Autowired
     OrderedConverter orderedConverter;
+
     @GetMapping("/list")
     @ResponseBody
-    public List<OrderedDto>getListOrderd(){
+    public List<OrderedDto> getListOrderd() {
         return orderedService.getAllOrdered();
 
 
     }
+
     @PostMapping("/checkout")
     @ResponseBody
     public OrderedDto checkout(HttpServletRequest request) {
@@ -59,11 +72,9 @@ public class OrderedController {
             }
         }
 
-        User user=userService.findUserById(userId);
+        User user = userService.findUserById(userId);
         String status = "Success";
         double totalPrice = cartManager.totalPrice();
-
-
         // Tạo đối tượng Order
         Ordered order = new Ordered();
         order.setUser(user);
@@ -72,9 +83,28 @@ public class OrderedController {
         //lấy ngày giờ hiện tại
         Date orderDate = new Date();
         order.setOrderDate(orderDate);
-        OrderedDto orderedDto=orderedConverter.toDto(orderedService.save(order));
+        OrderedDto orderedDto = orderedConverter.toDto(orderedService.save(order));
+        //Tạo đối tượng orderedDetails
+        List<CartItem> cartItems = cartManager.getCartItems();
+        List<OrderedDetail> orderedDetails = new ArrayList<>();
+
+        for (CartItem cartItem : cartItems) {
+            OrderedDetail orderedDetail = new OrderedDetail();
+            orderedDetail.setQuantityOrder(cartItem.getQuantity());
+            orderedDetail.setColorName(cartItem.getColorName());
+            orderedDetail.setSizeName(cartItem.getSizeName());
+            orderedDetail.setUnitPrice(cartItem.getUnitPrice());
+            int productId = cartItem.getProductId();
+            Product product = productService.findProductById(productId);
+            orderedDetail.setProduct(product);
+            orderedDetail.setOrder(order);
+            orderedDetails.add(orderedDetail);
+        }
+
+        orderedDetailService.addOrderedDetails(orderedDetails);
+
         cartManager.removeAllCart();
-        return  orderedDto;
+        return orderedDto;
     }
 
 

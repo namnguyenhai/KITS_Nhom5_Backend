@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface OrderedDetailService {
     public OrderedDetail addOrderedDetaiḷ(OrderedDetail orderedDetail);
+    public void addOrderedDetails(List<OrderedDetail> orderedDetails);
     public List<OrderedDetailDto>getAllOrderedDetail();
 
     public OrderedDetail findOrderedDetaiById(int orderedDetailId );

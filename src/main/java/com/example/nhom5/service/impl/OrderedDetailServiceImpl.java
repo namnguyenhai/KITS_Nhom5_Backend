@@ -26,6 +26,11 @@ public class OrderedDetailServiceImpl implements OrderedDetailService {
     }
 
     @Override
+    public void addOrderedDetails(List<OrderedDetail> orderedDetails) {
+        orderedDetailRepository.saveAll(orderedDetails);
+    }
+
+    @Override
     public List<OrderedDetailDto> getAllOrderedDetail() {
 
         List<OrderedDetailDto>res=new ArrayList<OrderedDetailDto>();
