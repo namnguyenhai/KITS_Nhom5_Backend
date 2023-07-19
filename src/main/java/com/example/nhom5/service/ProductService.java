@@ -16,4 +16,7 @@ public interface ProductService {
     public List<Map<String,Object>> getAllProducts();
     public List<Map<String,Object>> getTests();
     public String deleteProduct(int id);
+
+    public List<Map<String,Object>> findProductByName(String name);
+    public List<Map<String,Object>> getAllProductBrand();
 }

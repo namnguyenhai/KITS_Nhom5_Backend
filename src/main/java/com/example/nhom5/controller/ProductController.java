@@ -65,15 +65,32 @@ public class ProductController {
 
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
+    @GetMapping("/findproductbyname/{name}")
+    public ResponseEntity<?> find_Product_By_Name(@PathVariable String name){
+        Map<String,Object> output = new HashMap<>();
+        String sqlName = "%" + name +"%";
+        output.put("status",HttpStatus.OK.value());
+        output.put("product",productService.findProductByName(sqlName));
 
-    @GetMapping("/gettest")
-    public ResponseEntity<?> get_Tests() {
-        Map<String, Object> output = new HashMap<>();
-        output.put("status", HttpStatus.OK.value());
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
 
-        output.put("product", productService.getTests());
-
-        return new ResponseEntity<>(output, HttpStatus.OK);
+//    @GetMapping("/gettest")
+//    public ResponseEntity<?> get_Tests() {
+//        Map<String, Object> output = new HashMap<>();
+//        output.put("status", HttpStatus.OK.value());
+//
+//        output.put("product", productService.getTests());
+//
+//        return new ResponseEntity<>(output, HttpStatus.OK);
+//    }
+//
+    @GetMapping("/getproductbrands")
+    public ResponseEntity<?> get_All_Product_Brand(){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("product",productService.getAllProductBrand());
+        return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

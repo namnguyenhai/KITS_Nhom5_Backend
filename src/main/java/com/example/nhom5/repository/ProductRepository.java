@@ -5,6 +5,7 @@ import com.example.nhom5.model.ProductDTO;
 import com.example.nhom5.model.TestDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -34,8 +35,19 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
             "GROUP BY pro.product_id\n",nativeQuery = true)
     List<Map<String,Object>> getAllProduct();
 
+    @Query(value = "SELECT pro.product_id as productId,pro.product_name as productName,pro.brand as brand,pro.description as description,cate.category_name as categoryName,st.quantity_stock as quantityStock,st.price_stock as priceStock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT(DISTINCT st.color_id) as colorName,GROUP_CONCAT(DISTINCT st.size_id) as sizeName\n" +
+            "FROM product as pro \n" +
+            "INNER JOIN category as cate ON pro.categoryid = cate.category_name\n" +
+            "INNER JOIN product_image as img ON pro.product_id = img.product_id\n" +
+            "INNER JOIN stock st ON pro.product_id = st.product_id\n" +
+            "WHERE pro.product_name LIKE (:name)\n" +
+            "GROUP BY pro.product_id\n",nativeQuery = true)
+    List<Map<String,Object>> findProductByName(@Param("name") String name);
 
+    @Query(value = "SELECT DISTINCT pro.brand as brand\n" +
+            "FROM product as pro",nativeQuery = true)
 
+    List<Map<String,Object>> getProductBrand();
     @Query(value = "SELECT pro.product_id,GROUP_CONCAT(product_image.url_image) as urlimg \n" +
             "FROM product as pro\n" +
             "INNER JOIN category ON pro.categoryid = category.category_name \n" +

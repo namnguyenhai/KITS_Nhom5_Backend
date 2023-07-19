@@ -45,5 +45,15 @@ public class ProductServiceImpl implements ProductService {
         return "Product deleted";
     }
 
+    @Override
+    public List<Map<String, Object>> findProductByName(String name) {
+        return productRepository.findProductByName(name);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllProductBrand() {
+        return productRepository.getProductBrand();
+    }
+
 
 }
