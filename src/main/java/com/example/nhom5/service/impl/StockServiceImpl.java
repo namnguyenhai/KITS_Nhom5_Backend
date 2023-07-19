@@ -11,7 +11,7 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private StockRepository stockRepository;
     @Override
-    public Stock findStockByIdProduct(int productId) {
-        return stockRepository.findStockByProductId(productId);
+    public Stock findStock(int productId,String sizeName,String colorName) {
+        return stockRepository.findStock( productId,sizeName,colorName);
     }
 }

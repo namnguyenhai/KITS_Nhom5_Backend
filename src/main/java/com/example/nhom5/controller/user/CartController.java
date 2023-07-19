@@ -1,5 +1,7 @@
 package com.example.nhom5.controller.user;
 
+import com.example.nhom5.domain.Product;
+import com.example.nhom5.domain.Stock;
 import com.example.nhom5.dto.CartItem;
 import com.example.nhom5.dto.CartManager;
 import com.example.nhom5.service.ProductService;
@@ -35,7 +37,7 @@ public class CartController {
         List<CartItem> cartItems = cartManager.getCartItems();
 
         for (CartItem cartItem : cartItems) {
-            if (requestCart.getProductId().equals(cartItem.getProductId())
+            if (requestCart.getProductId()==(cartItem.getProductId())
                     && requestCart.getColorName().equals(cartItem.getColorName())
                     && requestCart.getSizeName().equals(cartItem.getSizeName())) {
                 // Nếu sản phẩm đã tồn tại trong giỏ hàng, chỉ cập nhật số lượng
@@ -44,7 +46,6 @@ public class CartController {
                 return ResponseEntity.ok().build();
             }
         }
-
         // Nếu sản phẩm không tồn tại trong giỏ hàng, thêm sản phẩm mới
         CartItem cart = new CartItem();
         cart.setProductId(requestCart.getProductId());
@@ -97,17 +98,23 @@ public class CartController {
         List<CartItem> cartItems = cartManager.getCartItems();
 
         for (CartItem cartItem : cartItems) {
-            if (requestCart.getProductId().equals(cartItem.getProductId())
+            if (requestCart.getProductId() == cartItem.getProductId()
                     && requestCart.getColorName().equals(cartItem.getColorName())
                     && requestCart.getSizeName().equals(cartItem.getSizeName())) {
-                // update số lượng
+                // Update số lượng
                 int newQuantity = requestCart.getQuantity();
                 cartItem.setQuantity(newQuantity);
+                Stock stock = stockService.findStock(requestCart.getProductId(), requestCart.getSizeName(), requestCart.getColorName());
+                if (cartItem.getQuantity() > stock.getQuantityStock()) {
+                    // Sản phẩm hết hàng, trả về mã lỗi 400 Bad Request
+                    return ResponseEntity.badRequest().build();
+                }
                 return ResponseEntity.ok().build();
             }
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.notFound().build();
     }
+
 
 
 }

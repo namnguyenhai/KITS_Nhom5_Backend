@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/update/{id}")
+    @PutMapping("/update/{id}")
     @ResponseBody
     public ResponseEntity<User> updateUser(@RequestBody User userDetails, @PathVariable("id") int userId) {
         User user = userService.findUserById(userId);

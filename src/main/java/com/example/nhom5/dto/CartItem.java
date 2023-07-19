@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CartItem {
-  private String productId;
+  private int productId;
   private String productName;
   private String urlImage;
   private int quantity;
