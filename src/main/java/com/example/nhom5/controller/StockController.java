@@ -35,7 +35,13 @@ public class StockController {
         output.put("stock",stockService.getStockByID(id));
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
-
+    @GetMapping("/getstockbyproductcolorsize/{productID}/{colorID}/{sizeID}")
+    public ResponseEntity<?> get_Stock_By_Product_Color_Size(@PathVariable int productID , @PathVariable String colorID, @PathVariable String sizeID){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("stock",stockService.getStockByProductColorSize(productID,colorID,sizeID));
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete_Stock_By_ID(@PathVariable int id){
         stockService.deleteStockByID(id);

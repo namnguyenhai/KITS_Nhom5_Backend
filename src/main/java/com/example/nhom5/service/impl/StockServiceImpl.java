@@ -35,5 +35,10 @@ public class StockServiceImpl implements StockService {
         return "Stock deleted";
     }
 
+    @Override
+    public List<Map<String, Object>> getStockByProductColorSize(int productId, String colorId, String sizeId) {
+        return stockRepository.getStockByColorSizeProductId(productId,colorId,sizeId);
+    }
+
 
 }
