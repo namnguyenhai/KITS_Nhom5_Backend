@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 public class CartItem {
   private String productId;
+  private String urlImage;
   private int quantity;
   private double unitPrice;
   private String colorName;

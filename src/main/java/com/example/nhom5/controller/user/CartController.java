@@ -48,6 +48,7 @@ public class CartController {
         // Nếu sản phẩm không tồn tại trong giỏ hàng, thêm sản phẩm mới
         CartItem cart = new CartItem();
         cart.setProductId(requestCart.getProductId());
+        cart.setUrlImage(requestCart.getUrlImage());
         cart.setQuantity(requestCart.getQuantity());
         cart.setUnitPrice(requestCart.getUnitPrice());
         cart.setColorName(requestCart.getColorName());
