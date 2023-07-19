@@ -28,6 +28,10 @@ public class CartManager {
     public void removeFromCart(CartItem item) {
         cartItems.remove(item);
     }
+    public void removeAllCart(){
+        cartItems.clear();
+
+    }
 
     public List<CartItem> getCartItems() {
         return cartItems;

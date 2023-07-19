@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class CartController {
     private final CartManager cartManager;
     @Autowired
@@ -80,6 +81,12 @@ public class CartController {
             // Nếu không tìm thấy sản phẩm, trả về lỗi 404 Not Found
             return ResponseEntity.notFound().build();
         }
+    }
+    @DeleteMapping("remove-all-cart")
+    public ResponseEntity<Void>removeAllCart(){
+        cartManager.removeAllCart();
+        return ResponseEntity.ok().build();
+
     }
 
 }
