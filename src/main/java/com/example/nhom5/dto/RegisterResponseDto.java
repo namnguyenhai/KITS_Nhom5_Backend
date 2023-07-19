@@ -16,4 +16,5 @@ public class RegisterResponseDto implements Serializable {
     private String error;
     private String messageCode;
     private String token;
+    private int userId;
 }

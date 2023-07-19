@@ -37,7 +37,7 @@ public class ForgotPassword {
         System.out.println("USER: " + user);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("User not found", "",
-                    "", "USER_NOT_FOUND",""));
+                    "", "USER_NOT_FOUND","",user.getUserId()));
         } else {
             // if user exists
             try {
@@ -53,10 +53,10 @@ public class ForgotPassword {
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Reset Password Successfully",
                         "", "",
-                        "RESET_PASSWORD_SUCCESSFULLY",""));
+                        "RESET_PASSWORD_SUCCESSFULLY","",user.getUserId()));
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Unknown Error", "",
-                        e.getMessage(), "UNKNOWN_ERROR",""));
+                        e.getMessage(), "UNKNOWN_ERROR","",user.getUserId()));
             }
         }
     }
