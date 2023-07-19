@@ -63,6 +63,7 @@ public class OrderedController {
         String status = "Success";
         double totalPrice = cartManager.totalPrice();
 
+
         // Tạo đối tượng Order
         Ordered order = new Ordered();
         order.setUser(user);
@@ -72,6 +73,7 @@ public class OrderedController {
         Date orderDate = new Date();
         order.setOrderDate(orderDate);
         OrderedDto orderedDto=orderedConverter.toDto(orderedService.save(order));
+        cartManager.removeAllCart();
         return  orderedDto;
     }
 
