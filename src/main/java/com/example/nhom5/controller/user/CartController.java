@@ -84,11 +84,30 @@ public class CartController {
             return ResponseEntity.notFound().build();
         }
     }
-    @DeleteMapping("remove-all-cart")
+    @DeleteMapping("/remove-all-cart")
     public ResponseEntity<Void>removeAllCart(){
         cartManager.removeAllCart();
         return ResponseEntity.ok().build();
 
     }
+    @PutMapping("/update-cart")
+    @ResponseBody
+    public ResponseEntity<Void> updateCart(@RequestBody CartItem requestCart) {
+
+        List<CartItem> cartItems = cartManager.getCartItems();
+
+        for (CartItem cartItem : cartItems) {
+            if (requestCart.getProductId().equals(cartItem.getProductId())
+                    && requestCart.getColorName().equals(cartItem.getColorName())
+                    && requestCart.getSizeName().equals(cartItem.getSizeName())) {
+                // update số lượng
+                int newQuantity = requestCart.getQuantity();
+                cartItem.setQuantity(newQuantity);
+                return ResponseEntity.ok().build();
+            }
+        }
+        return ResponseEntity.ok().build();
+    }
+
 
 }
