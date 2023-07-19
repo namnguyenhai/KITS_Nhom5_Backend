@@ -118,8 +118,11 @@ public class OrderedController {
         mes += "\n Thank you for visiting us and making your purchase";
 
         mes += "\n Your order includes: ";
+        int index=1;
         for (CartItem cartItem:cartItems) {
-            mes += "\n"+ "Name: "+ cartItem.getProductName() + ", quantity: " + cartItem.getQuantity();
+
+            mes += "\n" + index + ". " + cartItem.getProductName() + ", quantity: " + cartItem.getQuantity();
+            index++;
         }
         mes += "\n Total order price: " + order.getTotalPrice()+"$";
         mes += "\n Your order for another quarter has been processed and will ship in the next few days";
