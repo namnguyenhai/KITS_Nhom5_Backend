@@ -16,7 +16,7 @@ import java.io.Serializable;
 public class Stock implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int stockId;
     private int quantityStock;
     private double priceStock;
     @ManyToOne

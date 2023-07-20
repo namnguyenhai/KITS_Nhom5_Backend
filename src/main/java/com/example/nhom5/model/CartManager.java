@@ -1,8 +1,7 @@
-package com.example.nhom5.dto;
+package com.example.nhom5.model;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
 import java.util.List;

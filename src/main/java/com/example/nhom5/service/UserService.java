@@ -1,7 +1,7 @@
 package com.example.nhom5.service;
 
 import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.UserDto;
+import com.example.nhom5.model.UserDto;
 
 import java.util.List;
 

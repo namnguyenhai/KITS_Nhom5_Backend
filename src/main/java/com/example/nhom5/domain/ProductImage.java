@@ -14,21 +14,21 @@ import java.io.Serializable;
 public class ProductImage implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int productImageId;
 
     private String urlImage;
 
     @ManyToOne
     @JoinColumn(name = "productId")
     private Product product;
-
-    @ManyToOne
-    @JoinColumn(name = "color")
-    private Color color;
-
-    @ManyToOne
-    @JoinColumn(name = "size")
-    private Size size;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "color")
+//    private Color color;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "size")
+//    private Size size;
 
 
 }

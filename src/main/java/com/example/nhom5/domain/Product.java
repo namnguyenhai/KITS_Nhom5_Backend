@@ -18,23 +18,21 @@ public class Product implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
+    @Column(unique = true)
     private String productName;
     private String brand;
     private String description;
-
 
     @ManyToOne
     @JoinColumn(name = "categoryid")
     private Category category;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,orphanRemoval = true)
     private List<ProductImage> productImages;
 
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Stock> stocks;
 
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Discount> discounts;
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private Set<OrderedDetail> orderedDetails;
 }

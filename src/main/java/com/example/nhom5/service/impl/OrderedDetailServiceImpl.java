@@ -2,9 +2,7 @@ package com.example.nhom5.service.impl;
 
 import com.example.nhom5.converter.OrderedDetailConverter;
 import com.example.nhom5.domain.OrderedDetail;
-import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.OrderedDetailDto;
-import com.example.nhom5.dto.UserDto;
+import com.example.nhom5.model.OrderedDetailDto;
 import com.example.nhom5.repository.OrderedDetailRepository;
 import com.example.nhom5.service.OrderedDetailService;
 import org.springframework.beans.factory.annotation.Autowired;

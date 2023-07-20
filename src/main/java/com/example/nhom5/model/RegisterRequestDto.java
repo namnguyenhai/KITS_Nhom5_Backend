@@ -1,23 +1,21 @@
-package com.example.nhom5.dto;
+package com.example.nhom5.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
+import lombok.*;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto implements Serializable {
-    private int userId;
+@Getter
+@Setter
+public class RegisterRequestDto {
     private String firstName;
     private String lastName;
-    private String phone;
+    private String phoneNumber;
     private String address;
     private String image;
     private String email;
     private String username;
     private String password;
     private String role;
-
 }

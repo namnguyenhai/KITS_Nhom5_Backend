@@ -1,6 +1,6 @@
 package com.example.nhom5.converter;
 import com.example.nhom5.domain.OrderedDetail;
-import com.example.nhom5.dto.OrderedDetailDto;
+import com.example.nhom5.model.OrderedDetailDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

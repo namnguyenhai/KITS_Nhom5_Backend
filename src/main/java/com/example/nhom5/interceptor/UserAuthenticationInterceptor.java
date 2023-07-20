@@ -1,8 +1,6 @@
 package com.example.nhom5.interceptor;
-
-
 import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.RegisterResponseDto;
+import com.example.nhom5.model.RegisterResponseDto;
 import com.example.nhom5.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,7 +39,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
             User user = userService.findByToken(hd.get("token"));
             System.out.println("USERRR: " + user);
             if (user!=null&&user.getRole().equals("USER")) {
-              //response.sendRedirect("/cart");
+              //response.sendRedirect("http://localhost:3000/cart");
                 return true;
             } else {
                 response.setContentType("application/json");

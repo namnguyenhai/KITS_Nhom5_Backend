@@ -1,6 +1,6 @@
 package com.example.nhom5.service;
 import com.example.nhom5.domain.OrderedDetail;
-import com.example.nhom5.dto.OrderedDetailDto;
+import com.example.nhom5.model.OrderedDetailDto;
 
 import java.util.List;
 

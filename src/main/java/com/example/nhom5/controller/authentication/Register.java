@@ -1,8 +1,8 @@
 package com.example.nhom5.controller.authentication;
 
 import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.RegisterRequestDto;
-import com.example.nhom5.dto.RegisterResponseDto;
+import com.example.nhom5.model.RegisterRequestDto;
+import com.example.nhom5.model.RegisterResponseDto;
 import com.example.nhom5.service.UserService;
 import com.example.nhom5.utils.UtilsService;
 import jakarta.servlet.http.Cookie;

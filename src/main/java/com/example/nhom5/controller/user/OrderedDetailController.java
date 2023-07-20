@@ -1,17 +1,11 @@
 package com.example.nhom5.controller.user;
-import com.example.nhom5.domain.Ordered;
-import com.example.nhom5.domain.OrderedDetail;
-import com.example.nhom5.dto.CartItem;
-import com.example.nhom5.dto.CartManager;
-import com.example.nhom5.dto.OrderedDetailDto;
+import com.example.nhom5.model.CartManager;
+import com.example.nhom5.model.OrderedDetailDto;
 import com.example.nhom5.service.OrderedDetailService;
-import jakarta.persistence.criteria.Order;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

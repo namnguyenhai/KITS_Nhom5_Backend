@@ -2,7 +2,7 @@ package com.example.nhom5.service.impl;
 
 import com.example.nhom5.converter.UserConverter;
 import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.UserDto;
+import com.example.nhom5.model.UserDto;
 import com.example.nhom5.repository.UserRepository;
 import com.example.nhom5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

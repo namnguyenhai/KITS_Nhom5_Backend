@@ -1,8 +1,8 @@
 package com.example.nhom5.controller;
 
 import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.RegisterResponseDto;
-import com.example.nhom5.dto.UserDto;
+import com.example.nhom5.model.RegisterResponseDto;
+import com.example.nhom5.model.UserDto;
 import com.example.nhom5.service.UserService;
 
 

@@ -2,7 +2,7 @@ package com.example.nhom5.interceptor;
 
 
 import com.example.nhom5.domain.User;
-import com.example.nhom5.dto.RegisterResponseDto;
+import com.example.nhom5.model.RegisterResponseDto;
 import com.example.nhom5.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

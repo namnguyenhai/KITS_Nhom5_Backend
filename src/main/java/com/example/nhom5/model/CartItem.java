@@ -1,6 +1,5 @@
-package com.example.nhom5.dto;
+package com.example.nhom5.model;
 
-import com.example.nhom5.domain.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

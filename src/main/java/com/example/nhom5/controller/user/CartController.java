@@ -1,8 +1,8 @@
 package com.example.nhom5.controller.user;
 
 import com.example.nhom5.domain.Stock;
-import com.example.nhom5.dto.CartItem;
-import com.example.nhom5.dto.CartManager;
+import com.example.nhom5.model.CartItem;
+import com.example.nhom5.model.CartManager;
 import com.example.nhom5.service.ProductService;
 import com.example.nhom5.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,7 +61,7 @@ public class CartController {
 
 
     @DeleteMapping("/remove-cart/{productId}/{sizeName}/{colorName}")
-    public ResponseEntity<Void> removeFromCart(@PathVariable("productId") String productId,
+    public ResponseEntity<Void> removeFromCart(@PathVariable("productId") int productId,
                                                @PathVariable("sizeName") String sizeName,
                                                @PathVariable("colorName") String colorName) {
         List<CartItem> cartItems = cartManager.getCartItems();
@@ -69,7 +69,7 @@ public class CartController {
         // Tìm sản phẩm trong giỏ hàng dựa trên productId
         CartItem cartItemToRemove = null;
         for (CartItem cartItem : cartItems) {
-            if (productId.equals(cartItem.getProductId()) && sizeName.equals(cartItem.getSizeName()) && colorName.equals(cartItem.getColorName())) {
+            if (productId==(cartItem.getProductId()) && sizeName.equals(cartItem.getSizeName()) && colorName.equals(cartItem.getColorName())) {
                 cartItemToRemove = cartItem;
                 break;
             }

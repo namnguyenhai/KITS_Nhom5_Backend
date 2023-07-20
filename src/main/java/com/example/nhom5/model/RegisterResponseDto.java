@@ -1,4 +1,4 @@
-package com.example.nhom5.dto;
+package com.example.nhom5.model;
 
 
 import lombok.AllArgsConstructor;
