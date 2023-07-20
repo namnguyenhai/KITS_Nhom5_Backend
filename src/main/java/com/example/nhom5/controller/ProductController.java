@@ -93,11 +93,15 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
-//    @GetMapping("/filterproduct")
-//    public ResponseEntity<?> filter_Product(){
-//        Map<String,Object> out
-//    }
-//
+    @GetMapping("/filterproduct/{brand}/{size}/{color}/{maxPrice}")
+    public ResponseEntity<?> filter_Product(@PathVariable String brand,@PathVariable String size,@PathVariable String color,@PathVariable Double maxPrice){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("product",productService.filterProductAttribute(brand,size,color,maxPrice));
+        return new ResponseEntity<>(output,HttpStatus.OK);
+
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete_Product_By_Id(@PathVariable int id) {
         productService.deleteProduct(id);

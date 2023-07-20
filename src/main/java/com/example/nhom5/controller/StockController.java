@@ -39,6 +39,7 @@ public class StockController {
     public ResponseEntity<?> get_Stock_By_Product_Color_Size(@PathVariable int productID , @PathVariable String colorID, @PathVariable String sizeID){
         Map<String,Object> output = new HashMap<>();
         output.put("status",HttpStatus.OK.value());
+
         output.put("stock",stockService.getStockByProductColorSize(productID,colorID,sizeID));
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
@@ -62,13 +63,20 @@ public class StockController {
 
     @PostMapping("/add_stock_new_product")
     public ResponseEntity<?> add_Stock_New_Product(@RequestBody Stock stock){
-        Product pr = productService.addProduct(stock.getProduct());
-        productImageService.addListProductImages(stock.getProduct().getProductImages(),pr.getProductId());
-        stockService.addStock(stock);
         Map<String, Object> output = new HashMap<>();
-        output.put("status", HttpStatus.OK.value());
-        output.put("product",productService.getAllProducts());
-        return new ResponseEntity<>(output,HttpStatus.OK) ;
+        try {
+            Product pr = productService.addProduct(stock.getProduct());
+            productImageService.addListProductImages(stock.getProduct().getProductImages(),pr.getProductId());
+            stockService.addStock(stock);
+            output.put("status", HttpStatus.OK.value());
+            output.put("product",productService.getAllProducts());
+            return new ResponseEntity<>(output,HttpStatus.OK) ;
+        }
+        catch (Exception e){
+            output.put("status", HttpStatus.BAD_REQUEST.value());
+            output.put("message", "duplicate id or name of product");
+            return new ResponseEntity<>(output,HttpStatus.BAD_REQUEST) ;
+        }
     }
     /*
     * {
