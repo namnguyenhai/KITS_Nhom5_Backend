@@ -110,6 +110,13 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
 
     }
+    @GetMapping("/getproductbyid/{productId}")
+    public ResponseEntity<?> find_Product_By_Id(@PathVariable int productId){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("product",productService.findProductByID(productId));
+        return  new ResponseEntity<>(output,HttpStatus.OK);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete_Product_By_Id(@PathVariable int id) {

@@ -59,6 +59,16 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
             "GROUP BY pro.product_id,pro.product_name,pro.brand,pro.description,cate.category_name,st.quantity_stock,st.price_stock\n",nativeQuery = true)
     List<Map<String,Object>> findProductByName(@Param("name") String name);
 
+
+    @Query(value ="SELECT pro.product_id as productId,pro.product_name as productName,pro.brand as brand,pro.description as description,cate.category_name as categoryName,(SELECT GROUP_CONCAT(stock.quantity_stock) FROM stock INNER JOIN product ON product.product_id = stock.product_id WHERE product.product_id = (:productID)) as quantityStock,(SELECT GROUP_CONCAT(stock.price_stock) FROM stock INNER JOIN product ON product.product_id = stock.product_id WHERE product.product_id = (:productID)) as priceStock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT(DISTINCT st.color_id) as colorName,GROUP_CONCAT(DISTINCT st.size_id) as sizeName\n" +
+            "FROM product as pro\n" +
+            "INNER JOIN category as cate ON pro.categoryid = cate.category_name\n" +
+            "INNER JOIN product_image as img ON pro.product_id = img.product_id\n" +
+            "INNER JOIN stock st ON pro.product_id = st.product_id\n" +
+            "WHERE pro.product_id = (:productID)\n" +
+            "GROUP BY pro.product_id" ,nativeQuery = true)
+//,pro.product_name,pro.brand,pro.description,cate.category_name
+    List<Map<String,Object>> findProductById(@Param("productID") int productID);
     @Query(value = "SELECT DISTINCT pro.brand as brand\n" +
             "FROM product as pro",nativeQuery = true)
 

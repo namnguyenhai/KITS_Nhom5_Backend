@@ -51,6 +51,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Map<String, Object>> findProductByID(int productID) {
+        return productRepository.findProductById(productID);
+    }
+
+    @Override
     public List<Map<String, Object>> findProductByName(String name) {
         return productRepository.findProductByName(name);
     }
