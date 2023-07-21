@@ -23,8 +23,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Map<String, Object>> getAllProducts() {
-        return productRepository.getAllProduct();
+    public List<Map<String, Object>> getAllProductsAndStocks() {
+        return productRepository.getAllProductAndStock();
+    }
+
+    @Override
+    public List<Map<String,Object>> getAllProducts() {
+        return productRepository.getAllProductsInfo();
     }
 
 //    @Override

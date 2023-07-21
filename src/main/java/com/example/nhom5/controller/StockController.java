@@ -27,6 +27,13 @@ public class StockController {
     @Autowired
     ProductImageService productImageService;
 
+    @GetMapping("/getallstocks")
+    public ResponseEntity<?> get_All_Stock(){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("stock",stockService.getAllStocks());
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
     @GetMapping("/getstock/{id}")
     public ResponseEntity<?> get_Stock_By_ID(@PathVariable int id){
         stockService.getStockByID(id);

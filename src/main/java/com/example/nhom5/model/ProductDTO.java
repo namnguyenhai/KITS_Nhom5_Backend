@@ -31,4 +31,11 @@ public class ProductDTO {
         this.quantityStock = quantityStock;
         this.priceStock = priceStock;
     }
+
+    public ProductDTO(int productId, String productName, String brand, String categoryName) {
+        this.productId = productId;
+        this.productName = productName;
+        this.brand = brand;
+        this.categoryName = categoryName;
+    }
 }
