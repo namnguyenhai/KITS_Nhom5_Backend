@@ -100,15 +100,20 @@ public class CartController {
             if (requestCart.getProductId() == cartItem.getProductId()
                     && requestCart.getColorName().equals(cartItem.getColorName())
                     && requestCart.getSizeName().equals(cartItem.getSizeName())) {
+
                 // Update số lượng đang chọn
                 int newQuantity = requestCart.getQuantity();
-                cartItem.setQuantity(newQuantity);
+
                 Stock stock = stockService.findStock(requestCart.getProductId(), requestCart.getSizeName(), requestCart.getColorName());
-                if (cartItem.getQuantity() > stock.getQuantityStock()) {
-                    // Sản phẩm hết hàng, trả về mã lỗi 400 Bad Request
-                    return ResponseEntity.badRequest().body(stock.getQuantityStock());
+                int availableStock = stock.getQuantityStock();
+
+                if (availableStock >= newQuantity) {
+                    cartItem.setQuantity(newQuantity);
+                    return ResponseEntity.ok().build();
+                } else {
+                    // Sản phẩm không đủ hàng, trả về thông báo lỗi
+                    return ResponseEntity.badRequest().body(availableStock);
                 }
-                return ResponseEntity.ok().body(stock.getQuantityStock());
             }
         }
         return ResponseEntity.notFound().build();
