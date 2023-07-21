@@ -21,6 +21,7 @@ public class Product implements Serializable {
     @Column(unique = true)
     private String productName;
     private String brand;
+    @Column(columnDefinition = "LONGTEXT")
     private String description;
 
     @ManyToOne
