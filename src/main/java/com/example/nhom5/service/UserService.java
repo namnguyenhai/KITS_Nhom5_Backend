@@ -14,6 +14,7 @@ public interface UserService {
     public User findByToken(String token);
     public int updateTokenById(String token, int id);
    public  User findByUsername(String username);
+   public User findByEmail(String email);
 
 
 }
