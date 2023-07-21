@@ -92,7 +92,7 @@ public class CartController {
     }
     @PutMapping("/update-cart")
     @ResponseBody
-    public ResponseEntity<Void> updateCart(@RequestBody CartItem requestCart) {
+    public ResponseEntity<Integer> updateCart(@RequestBody CartItem requestCart) {
 
         List<CartItem> cartItems = cartManager.getCartItems();
 
@@ -100,15 +100,15 @@ public class CartController {
             if (requestCart.getProductId() == cartItem.getProductId()
                     && requestCart.getColorName().equals(cartItem.getColorName())
                     && requestCart.getSizeName().equals(cartItem.getSizeName())) {
-                // Update số lượng
+                // Update số lượng đang chọn
                 int newQuantity = requestCart.getQuantity();
                 cartItem.setQuantity(newQuantity);
                 Stock stock = stockService.findStock(requestCart.getProductId(), requestCart.getSizeName(), requestCart.getColorName());
                 if (cartItem.getQuantity() > stock.getQuantityStock()) {
                     // Sản phẩm hết hàng, trả về mã lỗi 400 Bad Request
-                    return ResponseEntity.badRequest().build();
+                    return ResponseEntity.badRequest().body(stock.getQuantityStock());
                 }
-                return ResponseEntity.ok().build();
+                return ResponseEntity.ok().body(stock.getQuantityStock());
             }
         }
         return ResponseEntity.notFound().build();
