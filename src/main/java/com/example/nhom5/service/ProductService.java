@@ -13,12 +13,13 @@ public interface ProductService {
     public Product findProductById(int productId);
 
 
-
     //    public List<ProductDTO> getAllProducts();
-    public List<Map<String,Object>> getAllProducts();
+    public List<Map<String,Object>> getAllProductsAndStocks();
+    public  List<Map<String,Object>> getAllProducts();
     public List<Map<String,Object>> getTests();
     public String deleteProduct(int id);
 
+    public List<Map<String,Object>> findProductByID(int productID);
     public List<Map<String,Object>> findProductByName(String name);
     public List<Map<String,Object>> getAllProductBrand();
 

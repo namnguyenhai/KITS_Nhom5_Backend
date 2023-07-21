@@ -27,12 +27,19 @@ public class StockController {
     @Autowired
     ProductImageService productImageService;
 
-    @GetMapping("/getstock/{id}")
-    public ResponseEntity<?> get_Stock_By_ID(@PathVariable int id){
-        stockService.getStockByID(id);
+    @GetMapping("/getallstocks")
+    public ResponseEntity<?> get_All_Stock(){
         Map<String,Object> output = new HashMap<>();
         output.put("status",HttpStatus.OK.value());
-        output.put("stock",stockService.getStockByID(id));
+        output.put("stock",stockService.getAllStocks());
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
+    @GetMapping("/getstock/{id}")
+    public ResponseEntity<?> get_Stock_By_ID(@PathVariable int id){
+        stockService.getStockByProductID(id);
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("stock",stockService.getStockByProductID(id));
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
     @GetMapping("/getstockbyproductcolorsize/{productID}/{colorID}/{sizeID}")
@@ -54,10 +61,10 @@ public class StockController {
 
     @PostMapping("/add")
     public ResponseEntity<?> add_Stock(@RequestBody Stock stock){
-        stockService.addStock(stock);
+        Stock stock1 = stockService.addStock(stock);
         Map<String,Object> output = new HashMap<>();
         output.put("status",HttpStatus.OK.value());
-        output.put("stock",stockService.getAllStocks());
+        output.put("stock",stockService.getStockByProductID(stock1.getProduct().getProductId()));
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 

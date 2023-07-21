@@ -23,8 +23,18 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Map<String, Object>> getAllProducts() {
-        return productRepository.getAllProduct();
+    public Product findProductById(int productId) {
+        return productRepository.findById(productId);
+    }
+
+    @Override
+    public List<Map<String, Object>> getAllProductsAndStocks() {
+        return productRepository.getAllProductAndStock();
+    }
+
+    @Override
+    public List<Map<String,Object>> getAllProducts() {
+        return productRepository.getAllProductsInfo();
     }
 
 //    @Override
@@ -46,6 +56,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Map<String, Object>> findProductByID(int productID) {
+        return productRepository.findProductById(productID);
+    }
+
+    @Override
     public List<Map<String, Object>> findProductByName(String name) {
         return productRepository.findProductByName(name);
     }
@@ -59,11 +74,6 @@ public class ProductServiceImpl implements ProductService {
     public List<Map<String, Object>> filterProductAttribute(String brand, String size, String color, Double maxPrice) {
         return productRepository.filterProduct(brand,size,color,maxPrice);
     }
-    @Override
-    public Product findProductById(int productId) {
-        return productRepository.findById(productId);
-    }
-
 
 
 }

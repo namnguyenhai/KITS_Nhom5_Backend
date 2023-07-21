@@ -29,7 +29,7 @@ public class ProductController {
         productService.addProduct(product);
         Map<String, Object> output = new HashMap<>();
         output.put("status", HttpStatus.OK.value());
-        output.put("product", productService.getAllProducts());
+        output.put("product", productService.getAllProductsAndStocks());
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
@@ -56,15 +56,16 @@ public class ProductController {
 //            }
 //
 //        }
-    @GetMapping("/getAllProducts")
-    public ResponseEntity<?> get_All_Products() {
+    @GetMapping("/getallproductsandstocks")
+    public ResponseEntity<?> get_All_Products_And_Stocks() {
         Map<String, Object> output = new HashMap<>();
         output.put("status", HttpStatus.OK.value());
 
-        output.put("product", productService.getAllProducts());
+        output.put("product", productService.getAllProductsAndStocks());
 
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
+
     @GetMapping("/findproductbyname/{name}")
     public ResponseEntity<?> find_Product_By_Name(@PathVariable String name){
         Map<String,Object> output = new HashMap<>();
@@ -93,6 +94,14 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
+    @GetMapping("/getAllProductInfo")
+    public ResponseEntity<?> get_All_Product(){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("product",productService.getAllProducts());
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
+
     @GetMapping("/filterproduct/{brand}/{size}/{color}/{maxPrice}")
     public ResponseEntity<?> filter_Product(@PathVariable String brand,@PathVariable String size,@PathVariable String color,@PathVariable Double maxPrice){
         Map<String,Object> output = new HashMap<>();
@@ -101,13 +110,20 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
 
     }
+    @GetMapping("/getproductbyid/{productId}")
+    public ResponseEntity<?> find_Product_By_Id(@PathVariable int productId){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("product",productService.findProductByID(productId));
+        return  new ResponseEntity<>(output,HttpStatus.OK);
+    }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete_Product_By_Id(@PathVariable int id) {
         productService.deleteProduct(id);
         Map<String, Object> output = new HashMap<>();
         output.put("status", HttpStatus.OK.value());
-        output.put("product", productService.getAllProducts());
+        output.put("product", productService.getAllProductsAndStocks());
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 }
