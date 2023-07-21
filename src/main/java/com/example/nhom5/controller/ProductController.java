@@ -33,29 +33,6 @@ public class ProductController {
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
 
-    //    @GetMapping("/getAllProducts")
-//    public ResponseEntity<?> get_All_Products(){
-//        Map<String,Object> output = new HashMap<>();
-//        output.put("status",HttpStatus.OK.value());
-//
-//        output.put("product",productService.getAllProducts());
-//
-//        return new ResponseEntity<>(output,HttpStatus.OK);
-//    }
-
-    //        List<Map<String,Object>> data = productService.getAllProducts();
-//        data.stream().map(entry -> {
-//            Map<String,Object> maps = new HashMap<>();
-//            en
-//        })
-//        Map<String,Object> newData = data.get(0);
-//        for(String keys: newData.keySet()){
-//            if(keys.equals("urlImage")){
-//                newData.put(keys,"[1,2]");
-//                System.out.println(newData.get(keys));
-//            }
-//
-//        }
     @GetMapping("/getallproductsandstocks")
     public ResponseEntity<?> get_All_Products_And_Stocks() {
         Map<String, Object> output = new HashMap<>();
@@ -76,16 +53,6 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
-//    @GetMapping("/gettest")
-//    public ResponseEntity<?> get_Tests() {
-//        Map<String, Object> output = new HashMap<>();
-//        output.put("status", HttpStatus.OK.value());
-//
-//        output.put("product", productService.getTests());
-//
-//        return new ResponseEntity<>(output, HttpStatus.OK);
-//    }
-//
     @GetMapping("/getproductbrands")
     public ResponseEntity<?> get_All_Product_Brand(){
         Map<String,Object> output = new HashMap<>();

@@ -32,16 +32,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.getAllProductsInfo();
     }
 
-//    @Override
-//    public List<ProductDTO> getAllProducts() {
-//        return productRepository.getAllProduct();
-//    }
-
-    @Override
-    public List<Map<String, Object>> getTests() {
-
-        return productRepository.getTest();
-    }
 
 
     @Override
