@@ -21,6 +21,12 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
             "on stock.size.sizeName = sz.sizeName")
     List<StockDTO> getAllStock();
 
+
+    @Query(value = "SELECT GROUP_CONCAT(DISTINCT stock.color_id) as colorId, GROUP_CONCAT(DISTINCT product.brand) as brand,GROUP_CONCAT(DISTINCT stock.size_id) as sizeId\n" +
+            "FROM stock INNER JOIN product \n" +
+            "ON stock.product_id = product.product_id",nativeQuery = true)
+    List<Map<String,Object>> getStockColorSizeBrand();
+
     @Query(value = "SELECT st.stock_id as stockId, st.color_id as colorId, st.size_id as sizeId, st.price_stock as priceStock, st.quantity_stock as quantityStock\n" +
             "FROM stock as st\n" +
             "WHERE st.product_id = (:productId) AND st.color_id LIKE (:colorId) AND st.size_id LIKE (:sizeIdStock)", nativeQuery = true)

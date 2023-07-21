@@ -40,5 +40,10 @@ public class StockServiceImpl implements StockService {
         return stockRepository.getStockByColorSizeProductId(productId,colorId,sizeId);
     }
 
+    @Override
+    public List<Map<String, Object>> getStockColorsSizesBrands() {
+        return stockRepository.getStockColorSizeBrand();
+    }
+
 
 }
