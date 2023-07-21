@@ -52,14 +52,13 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     List<Map<String,Object>> getProductBrand();
 
-    @Query(value = "SELECT pro.product_id as productId,pro.product_name as productName,pro.brand as brand,pro.description as description,cate.category_name as categoryName,st.quantity_stock as quantityStock,st.price_stock as priceStock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT(DISTINCT st.color_id) as colorName,GROUP_CONCAT(DISTINCT st.size_id) as sizeName\n" +
-            "FROM product as pro \n" +
-            "INNER JOIN category as cate ON pro.categoryid = cate.category_name\n" +
-            "INNER JOIN product_image as img ON pro.product_id = img.product_id\n" +
-            "INNER JOIN stock st ON pro.product_id = st.product_id\n" +
-            "WHERE pro.brand LIKE (:brandProduct) AND st.size_id LIKE (:sizeProduct) AND st.color_id LIKE (:colorProduct) AND (st.price_stock BETWEEN 0 AND (:maxPrice))\n" +
-            "GROUP BY pro.product_id,pro.product_name,pro.brand,pro.description,cate.category_name,st.quantity_stock,st.price_stock\n",nativeQuery = true)
-    List<Map<String,Object>> filterProduct(@Param("brandProduct") String brandProduct, @Param("sizeProduct") String sizeProduct, @Param("colorProduct") String colorProduct, @Param("maxPrice") double maxPrice );
+    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,two.url_image as urlImage\n" +
+            "FROM stock\n" +
+            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,product_image.url_image FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
+            "ON stock.product_id = two.product_id\n" +
+            "WHERE two.brand LIKE (:brandProduct) AND stock.size_id LIKE (:sizeProduct) AND stock.color_id LIKE (:colorProduct) AND (stock.price_stock BETWEEN (:minPrice) AND (:maxPrice))\n" +
+            "GROUP BY stock.product_id",nativeQuery = true)
+    List<Map<String,Object>> filterProduct(@Param("brandProduct") String brandProduct, @Param("sizeProduct") String sizeProduct, @Param("colorProduct") String colorProduct, @Param("minPrice") double minPrice,@Param("maxPrice") double maxPrice );
 
 
     @Query(value = "SELECT pro.product_id,GROUP_CONCAT(product_image.url_image) as urlimg \n" +

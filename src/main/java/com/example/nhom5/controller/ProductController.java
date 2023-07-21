@@ -102,11 +102,15 @@ public class ProductController {
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 
-    @GetMapping("/filterproduct/{brand}/{size}/{color}/{maxPrice}")
-    public ResponseEntity<?> filter_Product(@PathVariable String brand,@PathVariable String size,@PathVariable String color,@PathVariable Double maxPrice){
+    @GetMapping("/filterproduct")
+    //{brand}/{size}/{color}/{minPrice}/{maxPrice}
+    public ResponseEntity<?> filter_Product(@RequestParam(defaultValue = "%") String brand,@PathVariable String size,@PathVariable String color, @PathVariable Double minPrice,@PathVariable Double maxPrice){
+        String newBrand = "%" + brand + "%";
+        String newSize = "%" + size + "%";
+        String newColor = "%" + color + "%";
         Map<String,Object> output = new HashMap<>();
         output.put("status",HttpStatus.OK.value());
-        output.put("product",productService.filterProductAttribute(brand,size,color,maxPrice));
+        output.put("product",productService.filterProductAttribute(newBrand,newSize,newColor,minPrice,maxPrice));
         return new ResponseEntity<>(output,HttpStatus.OK);
 
     }

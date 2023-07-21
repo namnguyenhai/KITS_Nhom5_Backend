@@ -66,8 +66,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Map<String, Object>> filterProductAttribute(String brand, String size, String color, Double maxPrice) {
-        return productRepository.filterProduct(brand,size,color,maxPrice);
+    public List<Map<String, Object>> filterProductAttribute(String brand, String size, String color, Double minPrice, Double maxPrice) {
+        return productRepository.filterProduct(brand,size,color,minPrice,maxPrice);
     }
 
 
