@@ -33,15 +33,15 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 //            "INNER JOIN stock st \n" +
 //            "ON pro.product_id = st.product_id\n" +
 //            "GROUP BY pro.product_id\n",nativeQuery = true)
-    @Query(value = "SELECT pro.product_id as productId,pro.product_name as productName,pro.brand as brand,pro.description as description,cate.category_name as categoryName,st.quantity_stock as quantityStock,st.price_stock as priceStock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT(DISTINCT st.color_id) as colorName,GROUP_CONCAT(DISTINCT st.size_id) as sizeName\n" +
-            "            FROM product as pro\n" +
-            "            INNER JOIN category as cate\n" +
-            "            ON pro.categoryid = cate.category_name\n" +
-            "            INNER JOIN product_image as img\n" +
-            "            ON pro.product_id = img.product_id\n" +
-            "            INNER JOIN stock st\n" +
-            "            ON pro.product_id = st.product_id\n" +
-            "            GROUP BY pro.product_id,pro.product_name,pro.brand,pro.description,cate.category_name,st.quantity_stock,st.price_stock ",nativeQuery = true)
+    @Query(value = "SELECT pro.product_id as productId,pro.product_name as productName,pro.brand as brand,pro.description as description,cate.category_name as categoryName,GROUP_CONCAT(st.quantity_stock) as quantityStock,GROUP_CONCAT(st.price_stock) as priceStock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT( st.color_id) as colorName,GROUP_CONCAT( st.size_id) as sizeName\n" +
+            "FROM product as pro\n" +
+            "INNER JOIN category as cate\n" +
+            "ON pro.categoryid = cate.category_name\n" +
+            "INNER JOIN product_image as img\n" +
+            "ON pro.product_id = img.product_id\n" +
+            "INNER JOIN stock st\n" +
+            "ON pro.product_id = st.product_id\n" +
+            "GROUP BY pro.product_id,pro.product_name,pro.brand,pro.description,cate.category_name",nativeQuery = true)
     List<Map<String,Object>> getAllProductAndStock();
 //,pro.product_name,pro.brand,pro.description,cate.category_name,st.quantity_stock,st.price_stock
     @Query(value = "SELECT pro.product_id as productId, pro.product_name as productName, pro.brand as brand, cate.category_name\n" +
