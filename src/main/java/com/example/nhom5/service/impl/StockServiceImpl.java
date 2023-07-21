@@ -25,8 +25,8 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public List<Map<String, Object>> getStockByID(int id) {
-        return stockRepository.findAllByStockId(id);
+    public List<Map<String, Object>> getStockByProductID(int id) {
+        return stockRepository.findAllByProductId(id);
     }
 
     @Override

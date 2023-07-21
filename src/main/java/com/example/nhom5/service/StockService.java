@@ -11,7 +11,7 @@ public interface StockService {
 
     public List<StockDTO>  getAllStocks();
 
-    public List<Map<String,Object>> getStockByID(int id);
+    public List<Map<String,Object>> getStockByProductID(int id);
     public String deleteStockByID(int id);
     public List<Map<String,Object>> getStockByProductColorSize(int productId,String colorId, String sizeId);
 }
