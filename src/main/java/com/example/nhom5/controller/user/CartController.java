@@ -66,7 +66,7 @@ public class CartController {
                                                @PathVariable("colorName") String colorName) {
         List<CartItem> cartItems = cartManager.getCartItems();
 
-        // Tìm sản phẩm trong giỏ hàng dựa trên productId
+        // Tìm sản phẩm trong giỏ hàng dựa trên productId,sizeName,colorName
         CartItem cartItemToRemove = null;
         for (CartItem cartItem : cartItems) {
             if (productId==(cartItem.getProductId()) && sizeName.equals(cartItem.getSizeName()) && colorName.equals(cartItem.getColorName())) {
