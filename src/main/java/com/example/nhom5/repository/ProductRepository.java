@@ -33,15 +33,11 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 //            "INNER JOIN stock st \n" +
 //            "ON pro.product_id = st.product_id\n" +
 //            "GROUP BY pro.product_id\n",nativeQuery = true)
-    @Query(value = "SELECT pro.product_id as productId,pro.product_name as productName,pro.brand as brand,pro.description as description,cate.category_name as categoryName,GROUP_CONCAT(st.quantity_stock) as quantityStock,GROUP_CONCAT(st.price_stock) as priceStock,GROUP_CONCAT(DISTINCT img.url_image) as urlImage,GROUP_CONCAT( st.color_id) as colorName,GROUP_CONCAT( st.size_id) as sizeName\n" +
-            "FROM product as pro\n" +
-            "INNER JOIN category as cate\n" +
-            "ON pro.categoryid = cate.category_name\n" +
-            "INNER JOIN product_image as img\n" +
-            "ON pro.product_id = img.product_id\n" +
-            "INNER JOIN stock st\n" +
-            "ON pro.product_id = st.product_id\n" +
-            "GROUP BY pro.product_id,pro.product_name,pro.brand,pro.description,cate.category_name",nativeQuery = true)
+    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,two.url_image as urlImage\n" +
+            "FROM stock\n" +
+            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,product_image.url_image FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
+            "ON stock.product_id = two.product_id\n" +
+            "GROUP BY stock.product_id",nativeQuery = true)
     List<Map<String,Object>> getAllProductAndStock();
 //,pro.product_name,pro.brand,pro.description,cate.category_name,st.quantity_stock,st.price_stock
     @Query(value = "SELECT pro.product_id as productId, pro.product_name as productName, pro.brand as brand, cate.category_name\n" +
