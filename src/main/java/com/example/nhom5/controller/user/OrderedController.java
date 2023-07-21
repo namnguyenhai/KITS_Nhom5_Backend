@@ -106,6 +106,8 @@ public class OrderedController {
         }
 
         orderedDetailService.addOrderedDetails(orderedDetails);
+        //update quantity in stock
+
 
 
         //gui mail đặt hàng thành công cho khách hàng
@@ -128,7 +130,9 @@ public class OrderedController {
         mes += "\n Your order for another quarter has been processed and will ship in the next few days";
         message.setText(mes);
         this.javaMailSender.send(message);
+        stockService.updateStockQuantity(cartItems);
         cartManager.removeAllCart();
+
 
         return orderedDto;
     }
