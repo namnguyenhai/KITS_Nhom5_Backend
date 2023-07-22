@@ -4,6 +4,7 @@ import com.example.nhom5.domain.Product;
 import com.example.nhom5.domain.ProductImage;
 import com.example.nhom5.domain.Size;
 import com.example.nhom5.domain.Stock;
+import com.example.nhom5.model.StockDTO;
 import com.example.nhom5.service.ProductImageService;
 import com.example.nhom5.service.ProductService;
 import com.example.nhom5.service.StockService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/stocks")
@@ -72,7 +74,9 @@ public class StockController {
     @PostMapping("/add")
     public ResponseEntity<?> add_Stock(@RequestBody Stock stock){
         Map<String,Object> output = new HashMap<>();
-        if(stockService.existsStock(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName()) == false){
+        output.put("test",stockService.existStocks(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName()));
+        Boolean checked = stockService.existStocks(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName());
+        if(checked == false){
 
             Stock stock1 = stockService.addStock(stock);
 

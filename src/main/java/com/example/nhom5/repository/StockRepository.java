@@ -38,6 +38,7 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
     List<Map<String, Object>> findAllByProductId(@Param("id") int id);
 
 
-    @Query(value = "select COUNT(stock.stock_id) FROM stock WHERE stock.product_id = (:productId) AND stock.color_id LIKE (:colorId) AND stock.size_id LIKE (:sizeId)",nativeQuery = true)
-    List<Map<String,Object>> existStock(@Param("productId") int productId, @Param("colorId") String colorId, @Param("sizeId") String sizeId);
+//    @Query(value = "select COUNT(stock.stock_id)  AS stockId FROM stock WHERE stock.product_id = (:productId) AND stock.color_id LIKE (:colorId) AND stock.size_id LIKE (:sizeId)",nativeQuery = true)
+//    List<Map<String,Object>> existStock(@Param("productId") int productId, @Param("colorId") String colorId, @Param("sizeId") String sizeId);
+    Boolean existsByProductProductIdAndColorColorNameAndSizeSizeName(int productId,String color,String size);
 }

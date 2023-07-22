@@ -47,15 +47,8 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public boolean existsStock(int productId, String color, String size) {
-//        boolean a =( Integer)stockRepository.existStock(productId,color,size).get(0).get("stockId") >0;
-        if(stockRepository.existStock(productId,color,size)!=null){
-            return true;
-        }
-        else {
-            return false;
-        }
-
+    public boolean existStocks(int productId, String color, String size) {
+        return stockRepository.existsByProductProductIdAndColorColorNameAndSizeSizeName(productId,color,size);
     }
 
 
