@@ -15,9 +15,9 @@ import java.util.Map;
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Integer> {
 
-    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,GROUP_CONCAT(two.url_image) as urlImage\n" +
+    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,two.ims as urlImage\n" +
             "FROM stock\n" +
-            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,product_image.url_image FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
+            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,GROUP_CONCAT(product_image.url_image) as ims FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
             "ON stock.product_id = two.product_id\n" +
             "GROUP BY stock.product_id",nativeQuery = true)
     List<Map<String,Object>> getAllProductAndStock();
@@ -28,9 +28,9 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
             "ON pro.categoryid = cate.category_name\n" +
             "GROUP BY pro.product_id,pro.product_name, pro.brand, cate.category_name",nativeQuery = true)
     List<Map<String,Object>> getAllProductsInfo();
-    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,GROUP_CONCAT(two.url_image) as urlImage\n" +
+    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,two.ims as urlImage\n" +
             "FROM stock\n" +
-            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,product_image.url_image FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
+            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,GROUP_CONCAT(product_image.url_image) as ims  FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
             "ON stock.product_id = two.product_id\n" +
             "WHERE two.product_name LIKE (:name)\n" +
             "GROUP BY stock.product_id",nativeQuery = true)
@@ -52,9 +52,9 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
 
     List<Map<String,Object>> getProductBrand();
 
-    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,GROUP_CONCAT(two.url_image) as urlImage\n" +
+    @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,two.ims as urlImage\n" +
             "FROM stock\n" +
-            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,product_image.url_image FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
+            "INNER JOIN ((SELECT product.product_id,product.product_name,product.brand,product.description,product.categoryid,GROUP_CONCAT(product_image.url_image) as ims  FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id)) as two\n" +
             "ON stock.product_id = two.product_id\n" +
             "WHERE two.brand LIKE (:brandProduct) AND stock.size_id LIKE (:sizeProduct) AND stock.color_id LIKE (:colorProduct) AND (stock.price_stock BETWEEN (:minPrice) AND (:maxPrice))\n" +
             "GROUP BY stock.product_id",nativeQuery = true)
