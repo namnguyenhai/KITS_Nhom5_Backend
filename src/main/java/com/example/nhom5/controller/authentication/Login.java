@@ -26,6 +26,11 @@ public class Login {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private int loggedInUserId;
+
+    public int getLoggedInUserId() {
+        return loggedInUserId;
+    }
 
     @PostMapping
     @ResponseBody
@@ -50,12 +55,15 @@ public class Login {
                 Cookie cookie = new Cookie("token", newToken);
                 cookie.setMaxAge(3600);
                 response.addCookie(cookie);
+                loggedInUserId = user.getUserId();
+
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Login Successfully", "",
                         "", "", newToken,user.getUserId()));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("Wrong user or password", "", "", "USER_OR_PASSWORD_INVALID","",user.getUserId()));
             }
+
         }
     }
 }

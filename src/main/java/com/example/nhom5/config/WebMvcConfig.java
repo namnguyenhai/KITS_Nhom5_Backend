@@ -8,8 +8,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
-                .allowedMethods("GET","POST","PUT","DELETE","HEAD","OPTIONS");
-
+                .allowedOrigins("http://localhost:3000") // Thay đổi URL phù hợp với nguồn của ứng dụng ReactJS
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("Authorization", "Content-Type")
+                .allowCredentials(true);
     }
 }
