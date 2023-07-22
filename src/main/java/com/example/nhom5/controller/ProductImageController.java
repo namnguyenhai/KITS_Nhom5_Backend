@@ -13,7 +13,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/product_images")
-//@CrossOrigin(origins = "http://localhost:3000")
 public class ProductImageController {
     @Autowired
     ProductImageService productImageService;

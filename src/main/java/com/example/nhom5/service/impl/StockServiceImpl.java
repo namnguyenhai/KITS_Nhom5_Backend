@@ -42,6 +42,16 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
+    public List<Map<String, Object>> getStockColorsSizesBrands() {
+        return stockRepository.getStockColorSizeBrand();
+    }
+
+    @Override
+    public boolean existsStock(int productId, String color, String size) {
+        return false;
+    }
+
+    @Override
     public Stock findStock(int productId,String sizeName,String colorName) {
         return stockRepository.findStock( productId,sizeName,colorName);
     }

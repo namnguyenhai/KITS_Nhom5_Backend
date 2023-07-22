@@ -52,7 +52,7 @@ public class Login {
                 response.addCookie(cookie);
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Login Successfully", "",
-                        "", "", user.getToken(),user.getUserId()));
+                        "", "", newToken,user.getUserId()));
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("Wrong user or password", "", "", "USER_OR_PASSWORD_INVALID","",user.getUserId()));
             }
