@@ -16,4 +16,5 @@ public interface StockService {
     public List<Map<String,Object>> getStockByProductColorSize(int productId,String colorId, String sizeId);
 
     public List<Map<String,Object>> getStockColorsSizesBrands();
+    public boolean existsStock(int productId, String color, String size);
 }

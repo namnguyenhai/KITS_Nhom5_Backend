@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class StockServiceImpl implements StockService {
@@ -43,6 +44,14 @@ public class StockServiceImpl implements StockService {
     @Override
     public List<Map<String, Object>> getStockColorsSizesBrands() {
         return stockRepository.getStockColorSizeBrand();
+    }
+
+    @Override
+    public boolean existsStock(int productId, String color, String size) {
+        if(stockRepository.existStock(productId,color,size) != null){
+            return true;
+        }
+        return false;
     }
 
 

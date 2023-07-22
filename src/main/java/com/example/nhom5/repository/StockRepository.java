@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Integer> {
@@ -35,4 +36,8 @@ public interface StockRepository extends JpaRepository<Stock, Integer> {
             "INNER JOIN product ON product.product_id = stock.product_id\n" +
             "WHERE product.product_id = (:id)", nativeQuery = true)
     List<Map<String, Object>> findAllByProductId(@Param("id") int id);
+
+
+    @Query(value = "select COUNT(stock.stock_id) FROM stock WHERE stock.product_id = (:productId) AND stock.color_id LIKE (:colorId) AND stock.size_id LIKE (:sizeId)",nativeQuery = true)
+    List<Map<String,Object>> existStock(@Param("productId") int productId, @Param("colorId") String colorId, @Param("sizeId") String sizeId);
 }
