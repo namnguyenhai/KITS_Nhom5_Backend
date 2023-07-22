@@ -74,7 +74,7 @@ public class StockController {
     @PostMapping("/add")
     public ResponseEntity<?> add_Stock(@RequestBody Stock stock){
         Map<String,Object> output = new HashMap<>();
-        output.put("test",stockService.existStocks(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName()));
+//        output.put("test",stockService.existStocks(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName()));
         Boolean checked = stockService.existStocks(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName());
         if(checked == false){
 
