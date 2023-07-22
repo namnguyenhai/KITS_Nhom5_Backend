@@ -34,6 +34,6 @@ public class Product implements Serializable {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,orphanRemoval = true)
     private List<Stock> stocks;
 
-    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,orphanRemoval = true)
-    private List<Discount> discounts;
+//    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,orphanRemoval = true)
+//    private List<Discount> discounts;
 }

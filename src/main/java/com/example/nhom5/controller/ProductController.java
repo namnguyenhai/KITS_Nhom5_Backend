@@ -71,7 +71,7 @@ public class ProductController {
 
     @GetMapping("/filterproduct")
     //{brand}/{size}/{color}/{minPrice}/{maxPrice}
-    public ResponseEntity<?> filter_Product(@RequestParam(defaultValue = "%") String brand,@PathVariable String size,@PathVariable String color, @PathVariable Double minPrice,@PathVariable Double maxPrice){
+    public ResponseEntity<?> filter_Product(@RequestParam(defaultValue = "") String brand,@RequestParam(defaultValue = "%") String size,@PathVariable String color, @PathVariable Double minPrice,@PathVariable Double maxPrice){
         String newBrand = "%" + brand + "%";
         String newSize = "%" + size + "%";
         String newColor = "%" + color + "%";
