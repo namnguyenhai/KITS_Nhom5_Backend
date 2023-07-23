@@ -12,7 +12,9 @@ import com.example.nhom5.model.OrderedDto;
 import com.example.nhom5.model.PaymentResDto;
 import com.example.nhom5.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -25,11 +27,9 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Controller
+@RestController
 @RequestMapping("api/user/orders")
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "Authorization")
 public class OrderedController {
-
     @Autowired
     OrderedService orderedService;
     @Autowired

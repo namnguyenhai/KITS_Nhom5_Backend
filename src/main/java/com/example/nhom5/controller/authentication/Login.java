@@ -26,12 +26,6 @@ public class Login {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private int loggedInUserId;
-
-    public int getLoggedInUserId() {
-        return loggedInUserId;
-    }
-
     @PostMapping
     @ResponseBody
     public ResponseEntity<RegisterResponseDto> login(@RequestBody RegisterRequestDto registerRequest,
@@ -55,8 +49,6 @@ public class Login {
                 Cookie cookie = new Cookie("token", newToken);
                 cookie.setMaxAge(3600);
                 response.addCookie(cookie);
-                loggedInUserId = user.getUserId();
-
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Login Successfully", "",
                         "", "", newToken,user.getUserId()));
