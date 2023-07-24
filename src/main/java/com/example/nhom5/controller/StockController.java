@@ -61,11 +61,22 @@ public class StockController {
 
     @PostMapping("/add")
     public ResponseEntity<?> add_Stock(@RequestBody Stock stock){
-        Stock stock1 = stockService.addStock(stock);
         Map<String,Object> output = new HashMap<>();
-        output.put("status",HttpStatus.OK.value());
-        output.put("stock",stockService.getStockByProductID(stock1.getProduct().getProductId()));
-        return new ResponseEntity<>(output,HttpStatus.OK);
+//        output.put("test",stockService.existStocks(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName()));
+        Boolean checked = stockService.existStocks(stock.getProduct().getProductId(),stock.getColor().getColorName(),stock.getSize().getSizeName());
+        if(checked == false){
+
+            Stock stock1 = stockService.addStock(stock);
+
+            output.put("status",HttpStatus.OK.value());
+            output.put("stock",stockService.getStockByProductID(stock1.getProduct().getProductId()));
+            return new ResponseEntity<>(output,HttpStatus.OK);
+        }
+        else {
+            output.put("status", HttpStatus.BAD_REQUEST.value());
+            output.put("message", "duplicate stock with color size product");
+            return new ResponseEntity<>(output,HttpStatus.BAD_REQUEST) ;
+        }
     }
 
     @PostMapping("/add_stock_new_product")

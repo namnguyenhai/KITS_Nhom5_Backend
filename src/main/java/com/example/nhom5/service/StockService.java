@@ -20,5 +20,6 @@ public interface StockService {
     public boolean existsStock(int productId, String color, String size);
     public Stock findStock(int productId,String sizeName,String colorName);
     public void updateStockQuantity(List<CartItem>cartItems);
+    public boolean existStocks(int productId, String color, String size);
 
 }

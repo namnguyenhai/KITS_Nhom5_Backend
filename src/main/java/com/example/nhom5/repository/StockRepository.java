@@ -11,9 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public interface StockRepository extends JpaRepository<Stock,Integer> {
+public interface StockRepository extends JpaRepository<Stock, Integer> {
     @Query("SELECT s FROM Stock s WHERE s.product.productId = ?1 AND s.size.sizeName = ?2 AND s.color.colorName = ?3")
-    public  Stock findStock(int productId,String sizeName,String colorName);
+    public Stock findStock(int productId, String sizeName, String colorName);
+
     @Query(value = "select new com.example.nhom5.model.StockDTO(stock.stockId,stock.quantityStock,stock.priceStock,stock.product.productId,stock.color.colorName,stock.size.sizeName) from Stock stock " +
             "inner join Product products " +
             "on stock.product.productId= products.productId " +
@@ -26,20 +27,21 @@ public interface StockRepository extends JpaRepository<Stock,Integer> {
 
     @Query(value = "SELECT GROUP_CONCAT(DISTINCT stock.color_id) as colorId, GROUP_CONCAT(DISTINCT product.brand) as brand,GROUP_CONCAT(DISTINCT stock.size_id) as sizeId\n" +
             "FROM stock INNER JOIN product \n" +
-            "ON stock.product_id = product.product_id",nativeQuery = true)
-    List<Map<String,Object>> getStockColorSizeBrand();
+            "ON stock.product_id = product.product_id", nativeQuery = true)
+    List<Map<String, Object>> getStockColorSizeBrand();
 
     @Query(value = "SELECT st.stock_id as stockId, st.color_id as colorId, st.size_id as sizeId, st.price_stock as priceStock, st.quantity_stock as quantityStock\n" +
             "FROM stock as st\n" +
             "WHERE st.product_id = (:productId) AND st.color_id LIKE (:colorId) AND st.size_id LIKE (:sizeIdStock)", nativeQuery = true)
-    List<Map<String,Object>> getStockByColorSizeProductId(@Param("productId") int productId, @Param("colorId") String colorId, @Param("sizeIdStock") String sizeIdStock);
+    List<Map<String, Object>> getStockByColorSizeProductId(@Param("productId") int productId, @Param("colorId") String colorId, @Param("sizeIdStock") String sizeIdStock);
+
     @Query(value = "SELECT stock.stock_id as stockId,product.product_id as productId,product.product_name as productName,stock.quantity_stock as quantityStock,stock.price_stock as priceStock,stock.color_id as colorId,stock.size_id as sizeId FROM stock \n" +
             "INNER JOIN product ON product.product_id = stock.product_id\n" +
             "WHERE product.product_id = (:id)", nativeQuery = true)
     List<Map<String, Object>> findAllByProductId(@Param("id") int id);
 
 
-    @Query(value = "select COUNT(stock.stock_id) FROM stock WHERE stock.product_id = (:productId) AND stock.color_id LIKE (:colorId) AND stock.size_id LIKE (:sizeId)",nativeQuery = true)
-    List<Map<String,Object>> existStock(@Param("productId") int productId, @Param("colorId") String colorId, @Param("sizeId") String sizeId);
-
+    //    @Query(value = "select COUNT(stock.stock_id) FROM stock WHERE stock.product_id = (:productId) AND stock.color_id LIKE (:colorId) AND stock.size_id LIKE (:sizeId)",nativeQuery = true)
+//    List<Map<String,Object>> existStock(@Param("productId") int productId, @Param("colorId") String colorId, @Param("sizeId") String sizeId);
+    Boolean existsByProductProductIdAndColorColorNameAndSizeSizeName(int productId, String color, String size);
 }

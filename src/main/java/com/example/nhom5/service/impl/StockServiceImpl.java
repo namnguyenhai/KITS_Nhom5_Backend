@@ -75,6 +75,11 @@ public class StockServiceImpl implements StockService {
             }
         }
     }
+
+    @Override
+    public boolean existStocks(int productId, String color, String size) {
+        return stockRepository.existsByProductProductIdAndColorColorNameAndSizeSizeName(productId,color,size);
     }
+}
 
 

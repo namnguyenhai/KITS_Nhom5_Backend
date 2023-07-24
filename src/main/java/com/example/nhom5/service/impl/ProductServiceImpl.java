@@ -60,5 +60,4 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.filterProduct(brand,size,color,minPrice,maxPrice);
     }
 
-
 }
