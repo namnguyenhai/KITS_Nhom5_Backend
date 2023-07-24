@@ -265,4 +265,22 @@ public class OrderedController {
 
         return ResponseEntity.ok().body(paymentResDto);
     }
+
+
+//    HaiNam code
+    @GetMapping("/statisticorderbymonth")
+    public ResponseEntity<?> get_All_Orders_By_Month(){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("orderstatistics",orderedService.getStatisticOrderByMonth());
+        return  new ResponseEntity<>(output,HttpStatus.OK);
+    }
+
+    @GetMapping("/getsumorders")
+    public ResponseEntity<?> get_Sum_Orders(){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("sumorder",orderedService.getSumOrders());
+        return  new ResponseEntity<>(output,HttpStatus.OK);
+    }
 }
