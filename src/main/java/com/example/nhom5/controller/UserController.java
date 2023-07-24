@@ -94,7 +94,7 @@ public class UserController {
             existingUser.setAddress(userDetails.getAddress());
             existingUser.setPhoneNumber(userDetails.getPhoneNumber());
             existingUser.setImage(userDetails.getImage());
-            existingUser.setUsername(userDetails.getUsername());
+            //existingUser.setUsername(userDetails.getUsername());
 
             User userUpdate = userService.updateUser(existingUser);
             UserDto userDto = userConverter.toDTo(userUpdate);
