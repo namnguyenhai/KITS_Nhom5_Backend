@@ -35,13 +35,23 @@ public class CartController {
         List<CartItem> cartItems = cartManager.getCartItems();
 
         for (CartItem cartItem : cartItems) {
-            if (requestCart.getProductId()==(cartItem.getProductId())
+            if (requestCart.getProductId() == cartItem.getProductId()
                     && requestCart.getColorName().equals(cartItem.getColorName())
                     && requestCart.getSizeName().equals(cartItem.getSizeName())) {
-                // Nếu sản phẩm đã tồn tại trong giỏ hàng, chỉ cập nhật số lượng
-                int newQuantity = cartItem.getQuantity() + requestCart.getQuantity();
-                cartItem.setQuantity(newQuantity);
-                return ResponseEntity.ok().build();
+
+                // Update số lượng đang chọn
+                int newQuantity = requestCart.getQuantity();
+
+                Stock stock = stockService.findStock(requestCart.getProductId(), requestCart.getSizeName(), requestCart.getColorName());
+                int availableStock = stock.getQuantityStock();
+
+                if (availableStock >= newQuantity) {
+                    cartItem.setQuantity(newQuantity);
+                    return ResponseEntity.ok().build();
+                } else {
+                    // Sản phẩm không đủ hàng, trả về thông báo lỗi
+                    return ResponseEntity.badRequest().build();
+                }
             }
         }
         // Nếu sản phẩm không tồn tại trong giỏ hàng, thêm sản phẩm mới
