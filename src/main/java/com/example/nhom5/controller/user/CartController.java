@@ -42,7 +42,7 @@ public class CartController {
                     && requestCart.getSizeName().equals(cartItem.getSizeName())) {
 
                 // Update số lượng đang chọn
-                int newQuantity = requestCart.getQuantity();
+                int newQuantity = requestCart.getQuantity() + cartItem.getQuantity();
 
                 int availableStock = stock.getQuantityStock();
 
@@ -51,7 +51,7 @@ public class CartController {
                     return ResponseEntity.ok().build();
                 } else {
                     // Sản phẩm không đủ hàng, trả về thông báo lỗi
-                    return ResponseEntity.badRequest().build();
+                    return ResponseEntity.badRequest().body(stock.getQuantityStock());
                 }
             }
         }
@@ -68,7 +68,6 @@ public class CartController {
 
         return ResponseEntity.ok().build();
     }
-
 
     @DeleteMapping("/remove-cart/{productId}/{sizeName}/{colorName}")
     public ResponseEntity<Void> removeFromCart(@PathVariable("productId") int productId,
