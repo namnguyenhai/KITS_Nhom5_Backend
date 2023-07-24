@@ -12,13 +12,10 @@ import com.example.nhom5.model.OrderedDto;
 import com.example.nhom5.model.PaymentResDto;
 import com.example.nhom5.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
@@ -53,9 +50,9 @@ public class OrderedController {
         return orderedService.getAllOrdered();
     }
 
-    @PostMapping("/checkout")
+    @PostMapping("/checkout-code")
     @ResponseBody
-    public ResponseEntity<?> checkout(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<?> checkoutCode(@RequestHeader("Authorization") String token) {
         int userId;
         if (token != null && token.startsWith("Bearer ")) {
             String jwtToken = token.substring(7); // Lấy phần token sau "Bearer "
@@ -126,13 +123,88 @@ public class OrderedController {
         cartManager.removeAllCart();
         return ResponseEntity.ok().body("Checkout success!");
     }
+    //----------------------------------Checkout online---------------------------------------------
+    @PostMapping("/checkout-online")
+    @ResponseBody
+    public ResponseEntity<?> checkoutOnline(@RequestHeader("Authorization") String token) {
+        int userId;
+        if (token != null && token.startsWith("Bearer ")) {
+            String jwtToken = token.substring(7); // Lấy phần token sau "Bearer "
+            User user = userService.findByToken(jwtToken);
+            if (user == null) {
+                // Return bad request if the user is not found with the given token
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token.");
+            }
+            userId = user.getUserId();
+        } else {
+            // Return bad request if the token is not provided or in an invalid format
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token.");
+        }
+        User user = userService.findUserById(userId);
+
+        String status = "Success";
+        double totalPrice = cartManager.totalPrice();
+        // Tạo đối tượng Order
+        Ordered order = new Ordered();
+        order.setUser(user);
+        order.setStatus(status);
+        order.setTotalPrice(totalPrice);
+        // Lấy ngày giờ hiện tại
+        Date orderDate = new Date();
+        order.setOrderDate(orderDate);
+        // OrderedDto orderedDto = orderedConverter.toDto(orderedService.save(order));
+        orderedService.save(order);
+        // Tạo đối tượng orderedDetails
+        List<CartItem> cartItems = cartManager.getCartItems();
+        List<OrderedDetail> orderedDetails = new ArrayList<>();
+
+        for (CartItem cartItem : cartItems) {
+            OrderedDetail orderedDetail = new OrderedDetail();
+            orderedDetail.setQuantityOrder(cartItem.getQuantity());
+            orderedDetail.setColorName(cartItem.getColorName());
+            orderedDetail.setSizeName(cartItem.getSizeName());
+            orderedDetail.setUnitPrice(cartItem.getUnitPrice());
+            int productId = cartItem.getProductId();
+            Product product = productService.findProductById(productId);
+            orderedDetail.setProduct(product);
+            orderedDetail.setOrder(order);
+            orderedDetails.add(orderedDetail);
+        }
+
+        orderedDetailService.addOrderedDetails(orderedDetails);
+        // Cập nhật số lượng trong kho hàng
+
+        // Gửi email đặt hàng thành công cho khách hàng
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(user.getEmail());
+        System.out.println(user.getEmail());
+        message.setSubject("Order Successfully!");
+        String mes = "";
+        mes += "\n Dear Mr/Mrs " + user.getFirstName() + user.getLastName() + ",";
+        mes += "\n Thank you for visiting us and making your purchase";
+
+        mes += "\n Your order includes: ";
+        int index = 1;
+        for (CartItem cartItem : cartItems) {
+            mes += "\n" + index + ". " + cartItem.getProductName() + ", quantity: " + cartItem.getQuantity();
+            index++;
+        }
+        mes += "\n Total order price: " + order.getTotalPrice() + "$";
+        mes+="\n Thank you for your payment!";
+        mes += "\n Your order for another quarter has been processed and will ship in the next few days";
+        message.setText(mes);
+        this.javaMailSender.send(message);
+        stockService.updateStockQuantity(cartItems);
+        cartManager.removeAllCart();
+        return ResponseEntity.ok().body("Checkout success!");
+    }
 
     //Tích hợp thanh toán VNPay
     @PostMapping("/create_payment")
     public ResponseEntity<?> createPayment() throws UnsupportedEncodingException {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
-        long amount = (long) (cartManager.totalPrice() * 2300000);
+        long amount = (long) (cartManager.totalPrice() * 2400000);
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_TmnCode = Config.vnp_TmnCode;
         Map<String, String> vnp_Params = new HashMap<>();
