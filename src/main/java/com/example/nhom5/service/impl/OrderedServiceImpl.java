@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class OrderedServiceImpl implements OrderedService {
     @Autowired
@@ -31,5 +33,16 @@ public class OrderedServiceImpl implements OrderedService {
       return  orderedRepository.save(order);
 
 
+    }
+
+//    HaiNam code
+    @Override
+    public List<Map<String, Object>> getStatisticOrderByMonth() {
+        return orderedRepository.statisticsOrderMonth();
+    }
+
+    @Override
+    public List<Map<String, Object>> getSumOrders() {
+        return orderedRepository.getSumOrder();
     }
 }
