@@ -93,8 +93,16 @@ public class UserController {
             existingUser.setLastName(userDetails.getLastName());
             existingUser.setAddress(userDetails.getAddress());
             existingUser.setPhoneNumber(userDetails.getPhoneNumber());
-            existingUser.setImage(userDetails.getImage());
+            //existingUser.setImage(userDetails.getImage());
             //existingUser.setUsername(userDetails.getUsername());
+            User FoundEmail=userService.findByEmail(userDetails.getEmail());
+            if(FoundEmail!=null){
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
+                        "", "EMAIL_EXIST","",user.getUserId()));
+            }else{
+                existingUser.setEmail(userDetails.getEmail());
+            }
+
 
             User userUpdate = userService.updateUser(existingUser);
             UserDto userDto = userConverter.toDTo(userUpdate);
