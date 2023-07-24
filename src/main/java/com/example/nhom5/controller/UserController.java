@@ -10,6 +10,7 @@ import com.example.nhom5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,8 @@ public class UserController {
     UserService userService;
     @Autowired
     UserConverter userConverter;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping("/list")
     @ResponseBody
@@ -61,7 +64,7 @@ public class UserController {
 
             // Kiểm tra nếu client cung cấp mật khẩu mới thì mới cập nhật
             if (userDetails.getPassword() != null) {
-                existingUser.setPassword(userDetails.getPassword());
+                existingUser.setPassword(bCryptPasswordEncoder.encode(userDetails.getPassword()));
             }
 
             // Cập nhật thông tin người dùng
