@@ -32,6 +32,7 @@ public class UserController {
 
         return userService.getAllUser();
     }
+
     @RequestMapping("add")
     public RegisterResponseDto add() {
         return new RegisterResponseDto();
@@ -43,6 +44,28 @@ public class UserController {
         userService.addUser(user);
         return ResponseEntity.ok(user);
     }
+
+    @GetMapping("/user")
+    @ResponseBody
+    public ResponseEntity<UserDto> getUserByToken(@RequestHeader("Authorization") String token) {
+        if (token == null || !token.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        String jwtToken = token.substring(7); // Lấy phần token sau "Bearer "
+        User user = userService.findByToken(jwtToken);
+        if (user == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        int userId = user.getUserId();
+        User userupdate = userService.findUserById(userId);
+        UserDto userDto = userConverter.toDTo(userupdate);
+
+        return ResponseEntity.ok(userDto);
+    }
+
+
 
     @PutMapping("/update")
     @ResponseBody
