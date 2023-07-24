@@ -25,8 +25,8 @@ public class Logout {
     }
 
     @PostMapping
-    public ResponseEntity<RegisterResponseDto> logout(@RequestHeader("Authorization") String token,
-                                                      HttpServletResponse response) {
+    public ResponseEntity<RegisterResponseDto> logout(@RequestHeader("Authorization") String token
+                                                   ) {
         // user entity
         User user = userService.findByToken(token);
 
@@ -41,7 +41,7 @@ public class Logout {
             // 2. Set cookie
             Cookie cookie = new Cookie("token", "");
             cookie.setMaxAge(0);
-            response.addCookie(cookie);
+           // response.addCookie(cookie);
             return ResponseEntity.status(HttpStatus.OK).body(
                     new RegisterResponseDto("Logout Successfully", "", "", "", "", user.getUserId())
             );

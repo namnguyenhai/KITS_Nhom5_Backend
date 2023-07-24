@@ -13,7 +13,8 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Integer> {
     public User findById(int userId);
 
-    @Query("SELECT u FROM User u WHERE u.email = :email")
+//    @Query(value = "SELECT * FROM users u WHERE u.email = :email LIMIT 1",nativeQuery = true)
+   @Query("SELECT u FROM User u WHERE u.email = :email")
     public User findByEmail(String email);
     //Optional<User> findByUserName(String username);
     @Query(value = "SELECT * FROM users u WHERE u.username = :username LIMIT 1", nativeQuery = true)

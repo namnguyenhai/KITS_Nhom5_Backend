@@ -44,7 +44,6 @@ public class UserController {
         userService.addUser(user);
         return ResponseEntity.ok(user);
     }
-
     @GetMapping("/user")
     @ResponseBody
     public ResponseEntity<UserDto> getUserByToken(@RequestHeader("Authorization") String token) {
@@ -61,7 +60,6 @@ public class UserController {
         int userId = user.getUserId();
         User userupdate = userService.findUserById(userId);
         UserDto userDto = userConverter.toDTo(userupdate);
-
         return ResponseEntity.ok(userDto);
     }
 

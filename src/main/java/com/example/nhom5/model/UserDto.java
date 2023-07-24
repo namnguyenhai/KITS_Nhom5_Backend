@@ -1,13 +1,12 @@
 package com.example.nhom5.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serializable;
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class UserDto implements Serializable {
     private int userId;
     private String firstName;

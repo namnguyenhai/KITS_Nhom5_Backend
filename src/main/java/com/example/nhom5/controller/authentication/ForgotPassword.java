@@ -8,13 +8,18 @@ import com.example.nhom5.utils.UtilsService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Random;
+
 @RestController
-@RequestMapping("api/reset-password")
+@RequestMapping("/api/reset-password")
 @CrossOrigin("http://localhost:3000/")
 public class ForgotPassword {
 
@@ -26,36 +31,32 @@ public class ForgotPassword {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    JavaMailSender javaMailSender;
 
-    @PostMapping
-    public ResponseEntity<RegisterResponseDto> forgotPassword(@RequestBody RegisterRequestDto registerRequest,
-                                                              HttpServletResponse response) {
-        // user entity
-        User user = userService.findByUsername(registerRequest.getUsername());
-        System.out.println("USER: " + user);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("User not found", "",
-                    "", "USER_NOT_FOUND","",user.getUserId()));
-        } else {
-            // if user exists
-            try {
-                user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
-                String token = UtilsService.getRandomHexString(150);
-                user.setToken(token);
-                userService.updateTokenById(token, user.getUserId());
-                // Set cookie
-                Cookie cookie = new Cookie("token", token);
-                cookie.setMaxAge(3600);
-                //add cookie to response
-                response.addCookie(cookie);
+    @PostMapping("/user")
+    @ResponseBody
+    public ResponseEntity<Void> forgotPassword(@RequestParam("email") String email) {
+        User user=userService.findByEmail(email);
+        if(user==null){
+            return ResponseEntity.badRequest().build();
+        }else {
 
-                return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Reset Password Successfully",
-                        "", "",
-                        "RESET_PASSWORD_SUCCESSFULLY","",user.getUserId()));
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Unknown Error", "",
-                        e.getMessage(), "UNKNOWN_ERROR","",user.getUserId()));
-            }
-        }
+            user.setPassword(bCryptPasswordEncoder.encode("12345"));
+            //mail
+            SimpleMailMessage message=new SimpleMailMessage();
+            message.setTo(user.getEmail());
+            System.out.println(user.getEmail());
+            message.setSubject("Reset Password Successfully!");
+            String mes = "";
+            mes+="\n You have successfully reset your password!";
+            mes+="\n - Username: "+user.getUsername();
+            mes+="\n The default password is 12345";
+            mes+="\n Please login again and change your password for security";
+            message.setText(mes);
+            this.javaMailSender.send(message);
+       }
+
+        return ResponseEntity.ok().build();
     }
 }
