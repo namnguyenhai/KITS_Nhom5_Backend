@@ -30,10 +30,12 @@ public class CartController {
 
     @PostMapping("/add-cart")
     @ResponseBody
-    public ResponseEntity<Void> addToCart(@RequestBody CartItem requestCart) {
-
+    public ResponseEntity<Integer> addToCart(@RequestBody CartItem requestCart) {
         List<CartItem> cartItems = cartManager.getCartItems();
-
+        Stock stock = stockService.findStock(requestCart.getProductId(), requestCart.getSizeName(), requestCart.getColorName());
+        if (stock.getQuantityStock() - requestCart.getQuantity() < 0) {
+            return ResponseEntity.badRequest().body(stock.getQuantityStock());
+        }
         for (CartItem cartItem : cartItems) {
             if (requestCart.getProductId() == cartItem.getProductId()
                     && requestCart.getColorName().equals(cartItem.getColorName())
@@ -42,7 +44,6 @@ public class CartController {
                 // Update số lượng đang chọn
                 int newQuantity = requestCart.getQuantity();
 
-                Stock stock = stockService.findStock(requestCart.getProductId(), requestCart.getSizeName(), requestCart.getColorName());
                 int availableStock = stock.getQuantityStock();
 
                 if (availableStock >= newQuantity) {
@@ -78,7 +79,7 @@ public class CartController {
         // Tìm sản phẩm trong giỏ hàng dựa trên productId,sizeName,colorName
         CartItem cartItemToRemove = null;
         for (CartItem cartItem : cartItems) {
-            if (productId==(cartItem.getProductId()) && sizeName.equals(cartItem.getSizeName()) && colorName.equals(cartItem.getColorName())) {
+            if (productId == (cartItem.getProductId()) && sizeName.equals(cartItem.getSizeName()) && colorName.equals(cartItem.getColorName())) {
                 cartItemToRemove = cartItem;
                 break;
             }
@@ -93,12 +94,14 @@ public class CartController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @DeleteMapping("/remove-all-cart")
-    public ResponseEntity<Void>removeAllCart(){
+    public ResponseEntity<Void> removeAllCart() {
         cartManager.removeAllCart();
         return ResponseEntity.ok().build();
 
     }
+
     @PutMapping("/update-cart")
     @ResponseBody
     public ResponseEntity<Integer> updateCart(@RequestBody CartItem requestCart) {
@@ -127,7 +130,6 @@ public class CartController {
         }
         return ResponseEntity.notFound().build();
     }
-
 
 
 }
