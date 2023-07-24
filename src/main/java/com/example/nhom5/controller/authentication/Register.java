@@ -46,6 +46,12 @@ public class Register {
         user.setUsername(registerRequest.getUsername());
 
         User foundUser = userService.findByUsername(registerRequest.getUsername());
+        User foundEmail=userService.findByEmail(registerRequest.getEmail());
+        if(foundEmail!=null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
+                    "", "EMAIL_EXIST","",user.getUserId()));
+
+        }
         System.out.println("foundUser: " + foundUser);
         // Generate password
         if(foundUser == null) {
