@@ -132,7 +132,7 @@ public class OrderedController {
     public ResponseEntity<?> createPayment() throws UnsupportedEncodingException {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
-        long amount = (long) (cartManager.totalPrice() * 23000);
+        long amount = (long) (cartManager.totalPrice() * 2300000);
         String vnp_TxnRef = Config.getRandomNumber(8);
         String vnp_TmnCode = Config.vnp_TmnCode;
         Map<String, String> vnp_Params = new HashMap<>();
@@ -141,7 +141,7 @@ public class OrderedController {
         vnp_Params.put("vnp_TmnCode", vnp_TmnCode);
         vnp_Params.put("vnp_Amount", String.valueOf(amount));
         vnp_Params.put("vnp_CurrCode", "VND");
-        vnp_Params.put("vnp_BankCode", "vi");
+        vnp_Params.put("vnp_BankCode", "NCB");
         vnp_Params.put("vnp_OrderType", "ORDER_TYPE");
         vnp_Params.put("vnp_Locale", "vn");
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
