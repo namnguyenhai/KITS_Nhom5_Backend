@@ -37,6 +37,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.addHeader("Access-Control-Allow-Origin","*");
                 response.addHeader("Access-Control-Allow-Headers","authorization,content-type");
+                response.addHeader("Access-Control-Allow-Methods","*");
                 response.getWriter().print(json);
                 response.flushBuffer();
                 return false;
@@ -48,6 +49,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
             String json = new ObjectMapper().writeValueAsString(res);
             response.setStatus(HttpStatus.OK.value());
             response.addHeader("Access-Control-Allow-Origin","*");
+            response.addHeader("Access-Control-Allow-Methods","*");
             response.addHeader("Access-Control-Allow-Headers","authorization,content-type");
             response.getWriter().print(json);
             response.flushBuffer();
