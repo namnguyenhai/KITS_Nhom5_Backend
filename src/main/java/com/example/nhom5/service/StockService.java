@@ -22,4 +22,5 @@ public interface StockService {
     public void updateStockQuantity(List<CartItem>cartItems);
     public boolean existStocks(int productId, String color, String size);
 
+
 }
