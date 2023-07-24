@@ -95,8 +95,8 @@ public class UserController {
             existingUser.setPhoneNumber(userDetails.getPhoneNumber());
             //existingUser.setImage(userDetails.getImage());
             //existingUser.setUsername(userDetails.getUsername());
-            User FoundEmail=userService.findByEmail(userDetails.getEmail());
-            if(FoundEmail!=null){
+            User foundEmail=userService.findByEmail(userDetails.getEmail());
+            if(foundEmail!=null){
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
                         "", "EMAIL_EXIST","",user.getUserId()));
             }else{
