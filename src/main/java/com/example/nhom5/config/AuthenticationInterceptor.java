@@ -19,7 +19,7 @@ public class AuthenticationInterceptor implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminAuthenticationInterceptor).addPathPatterns("/api/admin/**");
         registry.addInterceptor(adminAuthenticationInterceptor).addPathPatterns("/api/category/**");
-        //registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/api/user/**");
+        registry.addInterceptor(userAuthenticationInterceptor).addPathPatterns("/api/user/**");
 
        // registry.addInterceptor(siteAuthenticationInterceptor).addPathPatterns("/site/**");
     }

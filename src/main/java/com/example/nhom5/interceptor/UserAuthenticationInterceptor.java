@@ -5,10 +5,10 @@ import com.example.nhom5.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class UserAuthenticationInterceptor implements HandlerInterceptor {
@@ -17,6 +17,7 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
     private UserService userService;
 
     @Override
+
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("PRE HANDLER.........");
         String token = request.getHeader("Authorization");
@@ -34,6 +35,8 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
                         "", "USER_NOT_FOUND", "", user != null ? user.getUserId() : 0);
                 String json = new ObjectMapper().writeValueAsString(res);
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.addHeader("Access-Control-Allow-Origin","*");
+                response.addHeader("Access-Control-Allow-Headers","authorization,content-type");
                 response.getWriter().print(json);
                 response.flushBuffer();
                 return false;
@@ -43,7 +46,9 @@ public class UserAuthenticationInterceptor implements HandlerInterceptor {
             RegisterResponseDto res = new RegisterResponseDto("Authorization token not found", "",
                     "", "AUTH_TOKEN_NOT_FOUND", "", 0);
             String json = new ObjectMapper().writeValueAsString(res);
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
+            response.setStatus(HttpStatus.OK.value());
+            response.addHeader("Access-Control-Allow-Origin","*");
+            response.addHeader("Access-Control-Allow-Headers","authorization,content-type");
             response.getWriter().print(json);
             response.flushBuffer();
             return false;

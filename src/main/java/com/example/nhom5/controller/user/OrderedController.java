@@ -25,7 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("api/user/orders")
+
 public class OrderedController {
     @Autowired
     OrderedService orderedService;
@@ -51,7 +53,6 @@ public class OrderedController {
     }
 
     @PostMapping("/checkout-code")
-    @ResponseBody
     public ResponseEntity<?> checkoutCode(@RequestHeader("Authorization") String token) {
         int userId;
         if (token != null && token.startsWith("Bearer ")) {
