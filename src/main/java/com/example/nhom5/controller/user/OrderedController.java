@@ -69,7 +69,7 @@ public class OrderedController {
         }
         User user = userService.findUserById(userId);
 
-        String status = "Success";
+        String status = "Waiting for payment COD";
         double totalPrice = cartManager.totalPrice();
         // Tạo đối tượng Order
         Ordered order = new Ordered();
