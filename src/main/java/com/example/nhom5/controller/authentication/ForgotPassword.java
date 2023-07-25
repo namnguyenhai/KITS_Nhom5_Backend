@@ -43,6 +43,7 @@ public class ForgotPassword {
         }else {
 
             user.setPassword(bCryptPasswordEncoder.encode("12345"));
+            userService.updateUser(user);
             //mail
             SimpleMailMessage message=new SimpleMailMessage();
             message.setTo(user.getEmail());
