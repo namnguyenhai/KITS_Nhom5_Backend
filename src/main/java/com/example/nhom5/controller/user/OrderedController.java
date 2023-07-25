@@ -284,4 +284,12 @@ public class OrderedController {
         output.put("sumorder",orderedService.getSumOrders());
         return  new ResponseEntity<>(output,HttpStatus.OK);
     }
+
+    @GetMapping("/getorderswithusername")
+    public ResponseEntity<?> get_Orders_With_UserName(){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("orderwithusername",orderedService.getOrdersWithUserName());
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
 }

@@ -45,4 +45,9 @@ public class OrderedServiceImpl implements OrderedService {
     public List<Map<String, Object>> getSumOrders() {
         return orderedRepository.getSumOrder();
     }
+
+    @Override
+    public List<Map<String, Object>> getOrdersWithUserName() {
+        return orderedRepository.getOrderWithUserName();
+    }
 }

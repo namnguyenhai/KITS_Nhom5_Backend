@@ -12,4 +12,5 @@ public interface OrderedService {
 //    HaiNam code
     public List<Map<String,Object>> getStatisticOrderByMonth();
     public List<Map<String,Object>> getSumOrders();
+    public List<Map<String,Object>> getOrdersWithUserName();
 }

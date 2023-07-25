@@ -15,4 +15,9 @@ public interface OrderedRepository extends JpaRepository <Ordered,Integer> {
 
     @Query(value = "SELECT  SUM(total_price) as total_price_order FROM ordereds\n", nativeQuery = true)
     List<Map<String,Object>> getSumOrder();
+
+    @Query(value = "SELECT ordereds.order_id as orderid,users.first_name as username, ordereds.status as status,ordereds.total_price as totalprice, DATE(ordereds.order_date) as DateOrder\n" +
+            "FROM ordereds INNER JOIN users\n" +
+            "ON ordereds.user_id = users.user_id",nativeQuery = true)
+    List<Map<String,Object>> getOrderWithUserName();
 }
