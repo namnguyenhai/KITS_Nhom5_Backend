@@ -286,10 +286,18 @@ public class OrderedController {
     }
 
     @GetMapping("/getorderswithusername")
-    public ResponseEntity<?> get_Orders_With_UserName(){
+    public ResponseEntity<?> get_Orders_With_UserName(@RequestParam(defaultValue = "%") String userId){
         Map<String,Object> output = new HashMap<>();
         output.put("status",HttpStatus.OK.value());
-        output.put("orderwithusername",orderedService.getOrdersWithUserName());
+        output.put("orderwithusername",orderedService.getOrdersWithUserName(userId));
+        return new ResponseEntity<>(output,HttpStatus.OK);
+    }
+
+    @GetMapping("/getorderdetailfromorder")
+    public ResponseEntity<?> get_OrderDetail_From_Orders(@RequestParam(defaultValue = "%") String orderIds){
+        Map<String,Object> output = new HashMap<>();
+        output.put("status",HttpStatus.OK.value());
+        output.put("orderwithusername",orderedService.getOrderDetailFromOrder(orderIds));
         return new ResponseEntity<>(output,HttpStatus.OK);
     }
 }

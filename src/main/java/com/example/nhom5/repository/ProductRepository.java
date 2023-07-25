@@ -60,7 +60,13 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
             "GROUP BY stock.product_id",nativeQuery = true)
     List<Map<String,Object>> filterProduct(@Param("brandProduct") String brandProduct, @Param("sizeProduct") String sizeProduct, @Param("colorProduct") String colorProduct, @Param("minPrice") double minPrice,@Param("maxPrice") double maxPrice );
 
-
+    @Query(value = "SELECT ordered_details.product_id as productId, imgs.product_name as productName,imgs.brand as brands, imgs.categoryid as category, imgs.ccimg as image,SUM(ordered_details.quantity_order) as numberOrder\n" +
+            "FROM ordered_details INNER JOIN (SELECT product.product_id, product.product_name,product.brand,product.categoryid, GROUP_CONCAT(product_image.url_image) as ccimg FROM product INNER JOIN product_image ON product.product_id = product_image.product_id GROUP BY product.product_id) as imgs\n" +
+            "ON ordered_details.product_id = imgs.product_id\n" +
+            "GROUP BY imgs.product_id\n" +
+            "ORDER BY SUM(ordered_details.quantity_order) DESC\n" +
+            "LIMIT 5",nativeQuery = true )
+    List<Map<String,Object>> getBestSeller();
 
 
 

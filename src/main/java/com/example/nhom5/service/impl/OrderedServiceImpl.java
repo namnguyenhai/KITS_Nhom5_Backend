@@ -47,7 +47,14 @@ public class OrderedServiceImpl implements OrderedService {
     }
 
     @Override
-    public List<Map<String, Object>> getOrdersWithUserName() {
-        return orderedRepository.getOrderWithUserName();
+    public List<Map<String, Object>> getOrdersWithUserName(String userId) {
+        return orderedRepository.getOrderWithUserName(userId);
     }
+
+    @Override
+    public List<Map<String, Object>> getOrderDetailFromOrder(String orderIds) {
+        return orderedRepository.getOrderDetailFromOrders(orderIds);
+    }
+
+
 }
