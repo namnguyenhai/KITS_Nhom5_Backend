@@ -44,6 +44,7 @@ public class UserController {
         userService.addUser(user);
         return ResponseEntity.ok(user);
     }
+
     @GetMapping("/user")
     @ResponseBody
     public ResponseEntity<UserDto> getUserByToken(@RequestHeader("Authorization") String token) {
@@ -62,7 +63,6 @@ public class UserController {
         UserDto userDto = userConverter.toDTo(userupdate);
         return ResponseEntity.ok(userDto);
     }
-
 
 
     @PutMapping("/update")
@@ -91,18 +91,21 @@ public class UserController {
             // Cập nhật thông tin người dùng
             existingUser.setFirstName(userDetails.getFirstName());
             existingUser.setLastName(userDetails.getLastName());
-            existingUser.setAddress(userDetails.getAddress());
-            existingUser.setPhoneNumber(userDetails.getPhoneNumber());
-            //existingUser.setImage(userDetails.getImage());
-            //existingUser.setUsername(userDetails.getUsername());
-            User foundEmail=userService.findByEmail(userDetails.getEmail());
-            if(foundEmail!=null){
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
-                        "", "EMAIL_EXIST","",user.getUserId()));
-            }else{
-                existingUser.setEmail(userDetails.getEmail());
+            if (userDetails.getAddress() != null) {
+                existingUser.setAddress(userDetails.getAddress());
             }
-
+            if (userDetails.getPhoneNumber() != null) {
+                existingUser.setPhoneNumber(userDetails.getPhoneNumber());
+            }
+            User foundEmail = userService.findByEmail(userDetails.getEmail());
+            if (foundEmail != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
+                        "", "EMAIL_EXIST", "", user.getUserId()));
+            } else {
+                if (userDetails.getEmail() != null) {
+                    existingUser.setEmail(userDetails.getEmail());
+                }
+            }
 
             User userUpdate = userService.updateUser(existingUser);
             UserDto userDto = userConverter.toDTo(userUpdate);
