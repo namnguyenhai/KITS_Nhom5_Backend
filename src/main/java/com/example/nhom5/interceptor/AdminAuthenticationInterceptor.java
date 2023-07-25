@@ -32,7 +32,7 @@ public class AdminAuthenticationInterceptor implements HandlerInterceptor {
             } else {
                 response.setContentType("application/json");
                 RegisterResponseDto res = new RegisterResponseDto("User not found", "",
-                        "", "USER_NOT_FOUND", "", user != null ? user.getUserId() : 0);
+                        "", "USER_NOT_FOUND", "", user != null ? user.getUserId() : 0,user.getUsername());
                 String json = new ObjectMapper().writeValueAsString(res);
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
                 response.addHeader("Access-Control-Allow-Origin","*");
@@ -45,7 +45,7 @@ public class AdminAuthenticationInterceptor implements HandlerInterceptor {
         } else {
             response.setContentType("application/json");
             RegisterResponseDto res = new RegisterResponseDto("Authorization token not found", "",
-                    "", "AUTH_TOKEN_NOT_FOUND", "", 0);
+                    "", "AUTH_TOKEN_NOT_FOUND", "", 0,"");
             String json = new ObjectMapper().writeValueAsString(res);
             response.setStatus(HttpStatus.OK.value());
             response.addHeader("Access-Control-Allow-Origin","*");

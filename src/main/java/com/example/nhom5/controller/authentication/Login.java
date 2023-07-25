@@ -36,7 +36,7 @@ public class Login {
         System.out.println("USER: " + user);
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("User not found", "",
-                    "", "USER_NOT_FOUND","",user.getUserId()));
+                    "", "USER_NOT_FOUND","",user.getUserId(),user.getUsername()));
         } else {
             // if user exists
             if (bCryptPasswordEncoder.matches(registerRequest.getPassword(), user.getPassword())) {
@@ -51,9 +51,9 @@ public class Login {
                 response.addCookie(cookie);
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Login Successfully", "",
-                        "", "", newToken,user.getUserId()));
+                        "", "", newToken,user.getUserId(),user.getUsername()));
             } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("Wrong user or password", "", "", "USER_OR_PASSWORD_INVALID","",user.getUserId()));
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new RegisterResponseDto("Wrong user or password", "", "", "USER_OR_PASSWORD_INVALID","",user.getUserId(),user.getUsername()));
             }
 
         }

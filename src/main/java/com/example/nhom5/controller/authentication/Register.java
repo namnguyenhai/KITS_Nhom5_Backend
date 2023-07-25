@@ -49,7 +49,7 @@ public class Register {
         User foundEmail=userService.findByEmail(registerRequest.getEmail());
         if(foundEmail!=null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
-                    "", "EMAIL_EXIST","",user.getUserId()));
+                    "", "EMAIL_EXIST","",user.getUserId(),user.getUsername()));
 
         }
         System.out.println("foundUser: " + foundUser);
@@ -82,14 +82,14 @@ public class Register {
 
 
                 return ResponseEntity.status(HttpStatus.OK).body(new RegisterResponseDto("Register Successfully", result, "",
-                        "","",user.getUserId()));
+                        "","",user.getUserId(),user.getUsername()));
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("", "", e.getMessage(),
-                        "UNKNOWN_ERROR","",user.getUserId()));
+                        "UNKNOWN_ERROR","",user.getUserId(),user.getUsername()));
             }
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("User already exists", "",
-                    "", "USER_EXIST","",user.getUserId()));
+                    "", "USER_EXIST","",user.getUserId(),user.getUsername()));
         }
 
 

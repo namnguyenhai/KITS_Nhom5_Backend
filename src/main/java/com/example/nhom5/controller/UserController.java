@@ -100,7 +100,7 @@ public class UserController {
             User foundEmail = userService.findByEmail(userDetails.getEmail());
             if (foundEmail != null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
-                        "", "EMAIL_EXIST", "", user.getUserId()));
+                        "", "EMAIL_EXIST", "", user.getUserId(),user.getUsername()));
             } else {
                 if (userDetails.getEmail() != null) {
                     existingUser.setEmail(userDetails.getEmail());

@@ -32,7 +32,7 @@ public class Logout {
 
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    new RegisterResponseDto("User logged out", "", "", "USER_LOGGED_OUT", "", user.getUserId())
+                    new RegisterResponseDto("User logged out", "", "", "USER_LOGGED_OUT", "", user.getUserId(),user.getUsername())
             );
         } else {
             // if user exists
@@ -43,7 +43,7 @@ public class Logout {
             cookie.setMaxAge(0);
            // response.addCookie(cookie);
             return ResponseEntity.status(HttpStatus.OK).body(
-                    new RegisterResponseDto("Logout Successfully", "", "", "", "", user.getUserId())
+                    new RegisterResponseDto("Logout Successfully", "", "", "", "", user.getUserId(),user.getUsername())
             );
         }
     }
