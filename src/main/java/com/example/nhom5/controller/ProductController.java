@@ -96,4 +96,14 @@ public class ProductController {
         output.put("product", productService.getAllProductsAndStocks());
         return new ResponseEntity<>(output, HttpStatus.OK);
     }
+
+    @GetMapping("/getbestseller")
+    public ResponseEntity<?> get_Best_Seller_Product() {
+        Map<String, Object> output = new HashMap<>();
+
+        output.put("status", HttpStatus.OK.value());
+        output.put("product", productService.getBestSellersProduct());
+
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
 }
