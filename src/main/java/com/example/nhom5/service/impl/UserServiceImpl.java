@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -78,6 +79,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+
+//    HaiNam code
+    @Override
+    public List<Map<String, Object>> getUserById(int id) {
+        return userRepository.getUserByIds(id);
     }
 
 }

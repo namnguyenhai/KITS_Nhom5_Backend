@@ -14,7 +14,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/user/users")
@@ -100,7 +102,7 @@ public class UserController {
             User foundEmail = userService.findByEmail(userDetails.getEmail());
             if (foundEmail != null) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new RegisterResponseDto("Email already exists", "",
-                        "", "EMAIL_EXIST", "", user.getUserId(),user.getUsername()));
+                        "", "EMAIL_EXIST", "", user.getUserId(), user.getUsername()));
             } else {
                 if (userDetails.getEmail() != null) {
                     existingUser.setEmail(userDetails.getEmail());
@@ -116,4 +118,13 @@ public class UserController {
         }
     }
 
+
+    //    HaiNam code
+    @GetMapping("/getuserbyid")
+    public ResponseEntity<?> find_Product_By_Id(@RequestParam int userId) {
+        Map<String, Object> output = new HashMap<>();
+        output.put("status", HttpStatus.OK.value());
+        output.put("product", userService.getUserById(userId));
+        return new ResponseEntity<>(output, HttpStatus.OK);
+    }
 }
