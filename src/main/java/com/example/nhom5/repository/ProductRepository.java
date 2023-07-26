@@ -22,11 +22,11 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
             "GROUP BY stock.product_id",nativeQuery = true)
     List<Map<String,Object>> getAllProductAndStock();
     //,pro.product_name,pro.brand,pro.description,cate.category_name,st.quantity_stock,st.price_stock
-    @Query(value = "SELECT pro.product_id as productId, pro.product_name as productName, pro.brand as brand, cate.category_name\n" +
-            "FROM product pro \n" +
-            "INNER JOIN category cate \n" +
-            "ON pro.categoryid = cate.category_name\n" +
-            "GROUP BY pro.product_id,pro.product_name, pro.brand, cate.category_name",nativeQuery = true)
+    @Query(value = "SELECT pro.product_id as productId, pro.product_name as productName, pro.brand as brand, pro.categoryid as category, proimg.url_image as image\n" +
+            "FROM product pro\n" +
+            "INNER JOIN product_image proimg\n" +
+            "ON pro.product_id = proimg.product_id\n" +
+            "GROUP BY pro.product_id,pro.product_name, pro.brand, pro.categoryid ",nativeQuery = true)
     List<Map<String,Object>> getAllProductsInfo();
     @Query(value = "SELECT stock.product_id as productId,two.product_name as productName, two.brand as brand, two.description as description, two.categoryid as categoryName,GROUP_CONCAT(stock.price_stock) as priceStock,GROUP_CONCAT(stock.quantity_stock) as quantityStock,GROUP_CONCAT(stock.size_id) as sizeName,GROUP_CONCAT(stock.color_id) as colorName,two.ims as urlImage\n" +
             "FROM stock\n" +
