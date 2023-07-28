@@ -17,7 +17,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 @RestController
 @RequestMapping("api/register")
-@CrossOrigin("http://localhost:3000/")
+//@CrossOrigin("http://localhost:3000/")
 public class Register {
 
     @Autowired
