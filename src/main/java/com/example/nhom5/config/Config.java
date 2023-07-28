@@ -22,7 +22,8 @@ import javax.crypto.spec.SecretKeySpec;
 public class Config {
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_Returnurl = "http://localhost:3000/payment/success";
+//    public static String vnp_Returnurl = "http://localhost:3000/payment/success";
+    public static String vnp_Returnurl = "https://lisa-store.netlify.app/payment/success";
     //public static String vnp_Returnurl = "http://localhost:3000/";
 
     public static String vnp_TmnCode = "MLHL93ZG";
