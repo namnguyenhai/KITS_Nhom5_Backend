@@ -222,13 +222,15 @@ public class OrderedController {
 
         vnp_Params.put("vnp_ReturnUrl", Config.vnp_Returnurl);
         vnp_Params.put("vnp_IpAddr", "13.160.92.202");
-
+        //Lấy múi giờ Viet Nam
+//        TimeZone vietnamTimeZone = TimeZone.getTimeZone("Asia/Ho_Chi_Minh");
+//        Calendar cld = Calendar.getInstance(vietnamTimeZone);
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
 
-        cld.add(Calendar.MINUTE, 15);
+        cld.add(Calendar.HOUR, 24);
         String vnp_ExpireDate = formatter.format(cld.getTime());
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
 
@@ -268,7 +270,7 @@ public class OrderedController {
     }
 
 
-//    HaiNam code
+    //    HaiNam code
     @GetMapping("/statisticorderbymonth")
     public ResponseEntity<?> get_All_Orders_By_Month(){
         Map<String,Object> output = new HashMap<>();
