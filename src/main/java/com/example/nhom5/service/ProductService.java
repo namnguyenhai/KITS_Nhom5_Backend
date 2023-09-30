@@ -23,4 +23,5 @@ public interface ProductService {
     public List<Map<String,Object>> getAllProductBrand();
 
     public List<Map<String,Object>> filterProductAttribute(String brand, String size, String color,Double minPrice ,Double maxPrice);
+    public List<Map<String,Object>> getBestSellersProduct();
 }
